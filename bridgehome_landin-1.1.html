@@ -1,0 +1,2018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BridgeHome - The AI Companion That Bridges Generations</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #2563EB;
+            --secondary-orange: #FB923C;
+            --accent-green: #10B981;
+            --nhs-blue: #005EB8;
+            --background-white: #FFFFFF;
+            --background-grey: #F8FAFC;
+            --text-dark: #1F2937;
+            --text-medium: #6B7280;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        .launch-banner {
+            background: var(--accent-green);
+            color: white;
+            text-align: center;
+            padding: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .navbar {
+            background: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 28px;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary-blue);
+        }
+
+        .cta-nav {
+            background: var(--primary-blue);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-nav:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.3);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, #EBF8FF 0%, #FFFFFF 100%);
+            padding: 140px 0 80px;
+            text-align: center;
+        }
+
+        .hero-headline {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+            line-height: 1.2;
+        }
+
+        .hero-subheadline {
+            font-size: 1.3rem;
+            color: var(--text-medium);
+            margin-bottom: 1.5rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-emotional-hook {
+            margin: 1.5rem 0 2rem;
+            padding: 1rem 2rem;
+            background: rgba(251, 146, 60, 0.1);
+            border-radius: 12px;
+            border-left: 4px solid var(--secondary-orange);
+        }
+
+        .emotional-text {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            font-style: italic;
+            text-align: center;
+            margin: 0;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .cta-primary {
+            background: var(--secondary-orange);
+            color: white;
+            padding: 18px 36px;
+            border-radius: 12px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(251, 146, 60, 0.3);
+        }
+
+        .cta-secondary {
+            background: transparent;
+            border: 2px solid var(--primary-blue);
+            color: var(--primary-blue);
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .cta-secondary:hover {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .hero-trust {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .trust-item {
+            color: var(--text-medium);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .split-image {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .image-container {
+            text-align: center;
+        }
+
+        .placeholder-image {
+            width: 200px;
+            height: 150px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .worried { 
+            background: #FEF2F2; 
+        }
+        
+        .lonely { 
+            background: #F3F4F6; 
+        }
+
+        .image-caption {
+            font-size: 0.9rem;
+            color: var(--text-medium);
+            font-weight: 500;
+        }
+
+        /* Founder Story */
+        .founder-section {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .founder-card {
+            background: var(--background-grey);
+            border-radius: 20px;
+            padding: 3rem;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .founder-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .founder-content {
+            flex: 1;
+        }
+
+        .founder-quote {
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        .founder-info {
+            color: var(--text-medium);
+        }
+
+        .founder-name {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Problem Section */
+        .problem-section {
+            background: var(--background-grey);
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-medium);
+            text-align: center;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .problem-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .stat-label {
+            color: var(--text-medium);
+            font-size: 1.1rem;
+        }
+
+        .pain-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin: 3rem 0;
+        }
+
+        .pain-item {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+
+        .pain-header {
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .pain-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .pain-list li {
+            margin-bottom: 0.8rem;
+            padding-left: 0;
+            color: var(--text-medium);
+        }
+
+        .broken-solutions {
+            margin-top: 3rem;
+        }
+
+        .broken-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .broken-item {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            border: 2px solid #FEE2E2;
+        }
+
+        .broken-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .broken-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .broken-desc {
+            color: var(--text-medium);
+        }
+
+        /* Technology Simplification Section */
+        .technology-simplification-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 50%, #F0F9FF 100%);
+        }
+
+        .tech-philosophy {
+            text-align: center;
+            margin: 3rem 0;
+            padding: 2rem;
+            background: rgba(37, 99, 235, 0.05);
+            border-radius: 20px;
+        }
+
+        .philosophy-quote {
+            font-size: 1.3rem;
+            color: var(--primary-blue);
+            font-style: italic;
+            margin: 1rem 0;
+            padding: 0 2rem;
+            border-left: 4px solid var(--primary-blue);
+        }
+
+        .demo-title {
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        /* Tech Benefits */
+        .tech-benefits {
+            padding: 80px 0;
+            background: var(--background-grey);
+        }
+
+        .benefits-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .benefit-column {
+            padding: 2rem;
+            background: var(--background-grey);
+            border-radius: 16px;
+        }
+
+        .benefit-column-title {
+            text-align: center;
+            color: var(--primary-blue);
+            margin-bottom: 2rem;
+            font-size: 1.5rem;
+        }
+
+        .benefit-items {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .benefit-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .benefit-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .benefit-content h5 {
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .benefit-content p {
+            color: var(--text-medium);
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        /* Solution Section */
+        .solution-section {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .solution-intro {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .how-it-works {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin: 3rem 0;
+        }
+
+        .work-step {
+            text-align: center;
+            padding: 2rem;
+            background: var(--background-grey);
+            border-radius: 20px;
+            position: relative;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-blue);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 1.5rem;
+        }
+
+        .step-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .step-desc {
+            color: var(--text-medium);
+            margin-bottom: 1.5rem;
+        }
+
+        .step-visual {
+            width: 80px;
+            height: 80px;
+            background: var(--accent-green);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto;
+        }
+
+        /* AI Health Intelligence */
+        .health-intelligence-section {
+            padding: 80px 0;
+            background: var(--background-grey);
+        }
+
+        .health-ai-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .ai-feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            border: 3px solid transparent;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+
+        .ai-feature-card.primary { border-color: var(--primary-blue); }
+        .ai-feature-card.secondary { border-color: var(--secondary-orange); }
+        .ai-feature-card.accent { border-color: var(--accent-green); }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .feature-desc {
+            color: var(--text-medium);
+            margin-bottom: 1.5rem;
+        }
+
+        .detail-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.8rem;
+            color: var(--text-medium);
+        }
+
+        /* NHS Integration */
+        .nhs-integration-section {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .nhs-integration-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .integration-card {
+            background: var(--background-grey);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+
+        .integration-card.flagship {
+            border: 3px solid var(--nhs-blue);
+            background: white;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .nhs-logo {
+            font-size: 2rem;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .integration-status {
+            background: var(--accent-green);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .integration-status.planned {
+            background: var(--secondary-orange);
+        }
+
+        .integration-status.research {
+            background: var(--text-medium);
+        }
+
+        .card-desc {
+            color: var(--text-medium);
+            margin-bottom: 1.5rem;
+        }
+
+        .flow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .flow-step {
+            background: var(--primary-blue);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .flow-arrow {
+            font-size: 1.5rem;
+            color: var(--text-medium);
+        }
+
+        .nhs-benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .benefit-stat {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            border: 2px solid var(--nhs-blue);
+        }
+
+        .benefit-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .benefit-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .benefit-desc {
+            color: var(--text-medium);
+        }
+
+        /* Benefits Section */
+        .benefits-section {
+            padding: 80px 0;
+            background: var(--background-grey);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin: 3rem 0;
+        }
+
+        .benefits-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            border: 3px solid transparent;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+
+        .elderly-benefits { border-color: var(--accent-green); }
+        .children-benefits { border-color: var(--primary-blue); }
+
+        .card-title-large {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: var(--text-dark);
+            text-align: center;
+        }
+
+        .benefit-category {
+            margin-bottom: 2rem;
+        }
+
+        .category-title {
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .benefit-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .benefit-list li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-medium);
+        }
+
+        .benefit-list li:before {
+            content: "✓";
+            color: var(--accent-green);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .family-benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .family-benefit {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            border: 2px solid var(--secondary-orange);
+        }
+
+        /* Research Validation */
+        .research-section {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .research-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .research-stat {
+            text-align: center;
+            padding: 2rem;
+            background: var(--background-grey);
+            border-radius: 16px;
+        }
+
+        .findings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .finding-item {
+            background: var(--background-grey);
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .finding-percentage {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .finding-text {
+            color: var(--text-medium);
+        }
+
+        .partnerships {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .partnership-card {
+            background: var(--background-grey);
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            border: 2px solid var(--nhs-blue);
+        }
+
+        /* Roadmap */
+        .roadmap-section {
+            padding: 80px 0;
+            background: var(--background-grey);
+        }
+
+        .roadmap-timeline {
+            position: relative;
+            padding: 2rem 0;
+            margin: 3rem 0;
+        }
+
+        .roadmap-timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--primary-blue);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-right: 50%;
+            padding-right: 2rem;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: 50%;
+            padding-left: 2rem;
+            text-align: left;
+        }
+
+        .timeline-marker {
+            width: 20px;
+            height: 20px;
+            background: var(--primary-blue);
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 4px solid white;
+            box-shadow: 0 0 0 4px var(--primary-blue);
+            z-index: 10;
+        }
+
+        .timeline-item.current .timeline-marker {
+            background: var(--accent-green);
+            box-shadow: 0 0 0 4px var(--accent-green);
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+
+        .timeline-period {
+            color: var(--primary-blue);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .timeline-desc {
+            color: var(--text-medium);
+            margin-bottom: 1rem;
+        }
+
+        .timeline-milestones {
+            list-style: none;
+            padding: 0;
+        }
+
+        .timeline-milestones li {
+            margin-bottom: 0.5rem;
+            color: var(--text-medium);
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .timeline-milestones li:before {
+            content: "•";
+            color: var(--primary-blue);
+            position: absolute;
+            left: 0;
+        }
+
+        /* Signup Section */
+        .signup-section {
+            padding: 80px 0;
+            background: var(--primary-blue);
+            color: white;
+            text-align: center;
+        }
+
+        .signup-section .section-title {
+            color: white;
+        }
+
+        .signup-section .section-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .signup-card {
+            background: white;
+            color: var(--text-dark);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            max-width: 500px;
+            margin: 2rem auto;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .signup-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .email-input, .family-situation {
+            padding: 1rem;
+            border: 2px solid #E5E7EB;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .email-input:focus, .family-situation:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+        }
+
+        .signup-submit {
+            background: var(--primary-blue);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .signup-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.3);
+        }
+
+        .signup-benefits {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            text-align: left;
+            margin-top: 1rem;
+        }
+
+        .signup-benefits li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-medium);
+        }
+
+        .community-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .community-stat {
+            text-align: center;
+        }
+
+        .community-stat .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .community-stat .stat-label {
+            font-size: 0.9rem;
+            color: white;
+            opacity: 0.9;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 80px 0;
+            background: var(--background-grey);
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .faq-item {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+
+        .faq-question {
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .faq-answer {
+            color: var(--text-medium);
+            line-height: 1.6;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-headline {
+                font-size: 2.5rem;
+            }
+            
+            .hero-emotional-hook {
+                margin: 1rem 0;
+                padding: 1rem;
+            }
+
+            .emotional-text {
+                font-size: 1rem;
+            }
+            
+            .hero-ctas {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .pain-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .roadmap-timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-marker {
+                left: 30px;
+            }
+            
+            .timeline-item:nth-child(odd) .timeline-content,
+            .timeline-item:nth-child(even) .timeline-content {
+                margin-left: 60px;
+                margin-right: 0;
+                padding-left: 1rem;
+                padding-right: 0;
+                text-align: left;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+            
+            .community-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .split-image {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .benefits-comparison {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            /* No additional styles needed */
+        }
+
+        /* Accessibility */
+        .cta-primary:focus,
+        .signup-submit:focus,
+        .cta-nav:focus {
+            outline: 3px solid var(--secondary-orange);
+            outline-offset: 2px;
+        }
+
+        /* Success States */
+        .success-message {
+            background: #DCFCE7;
+            color: #166534;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #16A34A;
+            text-align: center;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        /* Loading States */
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Launch Banner -->
+    <div class="launch-banner">
+        Coming 2026 - Be The First to Connect Your Family
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                BridgeHome
+                <span>💛</span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="#vision">Our Vision</a></li>
+                <li><a href="#problem">The Problem</a></li>
+                <li><a href="#solution">Solution</a></li>
+                <li><a href="#tech-benefits">Technology</a></li>
+                <li><a href="#health-ai">Health AI</a></li>
+                <li><a href="#nhs">NHS Integration</a></li>
+            </ul>
+            <a href="#signup" class="cta-nav">Join Waiting List</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="vision">
+        <div class="container">
+            <h1 class="hero-headline">Help your parents live their best life</h1>
+            <p class="hero-subheadline">Daily AI companion that keeps families connected through natural conversation and intelligent health insights</p>
+            
+            <div class="hero-emotional-hook">
+                <p class="emotional-text">Because every family deserves to know their loved ones are safe, happy, and thriving at home</p>
+            </div>
+            
+            <div class="hero-ctas">
+                <a href="#signup" class="cta-primary">Start Their Best Life Today</a>
+                <a href="#solution" class="cta-secondary">See How It Works</a>
+            </div>
+
+            <div class="hero-trust">
+                <div class="trust-item">
+                    <span>💝</span> Built by families, for families
+                </div>
+                <div class="trust-item">
+                    <span>🏥</span> NHS integration ready
+                </div>
+                <div class="trust-item">
+                    <span>🧠</span> Advanced AI that cares
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem-section" id="problem">
+        <div class="container">
+            <h2 class="section-title">The Hidden Crisis of Modern Family Care</h2>
+            
+            <div class="problem-stats">
+                <div class="stat-item">
+                    <span class="stat-number">5.8M</span>
+                    <div class="stat-label">UK adults care for elderly parents from distance</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">1.4M</span>
+                    <div class="stat-label">"Sandwich generation" juggling children + aging parents</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">Daily</span>
+                    <div class="stat-label">Anxiety affects entire families</div>
+                </div>
+            </div>
+
+            <div class="section-subtitle">The Daily Struggle</div>
+            
+            <div class="pain-grid">
+                <div class="pain-item">
+                    <h3 class="pain-header">Adult Children Feel:</h3>
+                    <ul class="pain-list">
+                        <li>😰 "Is mum OK today?" - constant worry</li>
+                        <li>📱 Guilt from not calling enough</li>
+                        <li>💼 Work interruptions from emergency calls</li>
+                        <li>🏥 Learning about problems too late</li>
+                        <li>😔 Helplessness when living far away</li>
+                    </ul>
+                </div>
+                
+                <div class="pain-item">
+                    <h3 class="pain-header">Elderly Parents Feel:</h3>
+                    <ul class="pain-list">
+                        <li>🏠 "I don't want to burden my children"</li>
+                        <li>😔 Loneliness and isolation</li>
+                        <li>📱 "These devices are too complicated"</li>
+                        <li>👥 Disconnection from family life</li>
+                        <li>😟 Fear of losing independence</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="broken-solutions">
+                <h3 class="section-subtitle">Current Solutions Are Broken</h3>
+                <div class="broken-grid">
+                    <div class="broken-item">
+                        <div class="broken-icon">🚨</div>
+                        <div class="broken-title">Personal Alarms</div>
+                        <div class="broken-desc">Only work AFTER emergencies happen</div>
+                    </div>
+                    <div class="broken-item">
+                        <div class="broken-icon">🏥</div>
+                        <div class="broken-title">Care Services</div>
+                        <div class="broken-desc">Expensive, institutional, impersonal</div>
+                    </div>
+                    <div class="broken-item">
+                        <div class="broken-icon">💬</div>
+                        <div class="broken-title">Family WhatsApp</div>
+                        <div class="broken-desc">Creates guilt, relies on self-reporting</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="solution-section" id="solution">
+        <div class="container">
+            <div class="solution-intro">
+                <h2 class="section-title">Imagine: A Daily AI Companion That Bridges Generations</h2>
+                <p class="section-subtitle">We're building the first AI companion designed specifically for families - connecting elderly parents with their adult children through daily conversations, advanced health analytics, and NHS integration.</p>
+            </div>
+
+            <div class="section-subtitle">How BridgeHome Will Work</div>
+            
+            <div class="how-it-works">
+                <div class="work-step">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Daily Conversations</h3>
+                    <p class="step-desc">Our AI companion has warm, natural chats with your parent about their day, health, and mood - like talking to a caring friend</p>
+                    <div class="step-visual">🗣️</div>
+                </div>
+
+                <div class="work-step">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">AI Health Analysis</h3>
+                    <p class="step-desc">Advanced AI analyzes speech patterns, mood, cognitive responses and identifies health changes weeks before they become serious</p>
+                    <div class="step-visual">🧠</div>
+                </div>
+
+                <div class="work-step">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">Family Connection + NHS Integration</h3>
+                    <p class="step-desc">Families receive thoughtful updates, healthcare providers get clinical-grade data, everyone stays connected</p>
+                    <div class="step-visual">📊</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Advanced Technology Matters -->
+    <section class="tech-benefits" id="tech-benefits">
+        <div class="container">
+            <h2 class="section-title">Why Advanced Technology Matters</h2>
+            
+            <div class="benefits-comparison">
+                <div class="benefit-column">
+                    <h3 class="benefit-column-title">For Your Elderly Parent</h3>
+                    
+                    <div class="benefit-items">
+                        <div class="benefit-item">
+                            <div class="benefit-icon">🎯</div>
+                            <div class="benefit-content">
+                                <h5>No Technology Stress</h5>
+                                <p>Never worry about "doing it wrong" - just speak naturally</p>
+                            </div>
+                        </div>
+                        
+                        <div class="benefit-item">
+                            <div class="benefit-icon">🤝</div>
+                            <div class="benefit-content">
+                                <h5>Feels Human</h5>
+                                <p>AI conversation so natural it feels like talking to a caring friend</p>
+                            </div>
+                        </div>
+                        
+                        <div class="benefit-item">
+                            <div class="benefit-icon">🛡️</div>
+                            <div class="benefit-content">
+                                <h5>Privacy Respected</h5>
+                                <p>Share only what feels comfortable - AI understands boundaries</p>
+                            </div>
+                        </div>
+                        
+                        <div class="benefit-item">
+                            <div class="benefit-icon">⚡</div>
+                            <div class="benefit-content">
+                                <h5>Instant Understanding</h5>
+                                <p>No need to explain or repeat - AI gets it the first time</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="benefit-column">
+                    <h3 class="benefit-column-title">For Adult Children</h3>
+                    
+                    <div class="benefit-items">
+                        <div class="benefit-item">
+                            <div class="benefit-icon">📊</div>
+                            <div class="benefit-content">
+                                <h5>Rich Insights</h5>
+                                <p>Detailed health and wellbeing data from simple conversations</p>
+                            </div>
+                        </div>
+                        
+                        <div class="benefit-item">
+                            <div class="benefit-icon">🎯</div>
+                            <div class="benefit-content">
+                                <h5>Precise Alerts</h5>
+                                <p>Only get notified when something actually needs attention</p>
+                            </div>
+                        </div>
+                        
+                        <div class="benefit-item">
+                            <div class="benefit-icon">📈</div>
+                            <div class="benefit-content">
+                                <h5>Trend Analysis</h5>
+                                <p>Understand patterns and changes over weeks and months</p>
+                            </div>
+                        </div>
+                        
+                        <div class="benefit-item">
+                            <div class="benefit-icon">⚕️</div>
+                            <div class="benefit-content">
+                                <h5>Clinical Quality</h5>
+                                <p>Healthcare-grade data ready for GP appointments</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Health Intelligence -->
+    <section class="health-intelligence-section" id="health-ai">
+        <div class="container">
+            <h2 class="section-title">Advanced AI Health Intelligence</h2>
+            <p class="section-subtitle">Going beyond conversation - understanding your parent's health patterns with cutting-edge AI</p>
+            
+            <div class="health-ai-features">
+                <div class="ai-feature-card primary">
+                    <div class="feature-icon">🧠</div>
+                    <h3 class="feature-title">Conversational Health Analysis</h3>
+                    <p class="feature-desc">Our AI analyzes speech patterns, mood indicators, cognitive responses, and energy levels through natural conversation</p>
+                    <ul class="detail-list">
+                        <li class="detail-item">
+                            <span>🎤</span>
+                            Speech pattern recognition (slowness, confusion, clarity)
+                        </li>
+                        <li class="detail-item">
+                            <span>😊</span>
+                            Emotional state analysis through tone and language
+                        </li>
+                        <li class="detail-item">
+                            <span>⚡</span>
+                            Energy level detection via conversation engagement
+                        </li>
+                        <li class="detail-item">
+                            <span>🧩</span>
+                            Cognitive health monitoring through response patterns
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="ai-feature-card secondary">
+                    <div class="feature-icon">📊</div>
+                    <h3 class="feature-title">Predictive Health Insights</h3>
+                    <p class="feature-desc">Machine learning identifies subtle changes weeks before they become serious health concerns</p>
+                    <div class="flow-diagram">
+                        <div class="flow-step">Week 1-2<br>AI detects sleep pattern changes</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">Week 3<br>Correlates with mood changes</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">Week 4<br>Family alert: "Consider GP check"</div>
+                    </div>
+                </div>
+
+                <div class="ai-feature-card accent">
+                    <div class="feature-icon">🔗</div>
+                    <h3 class="feature-title">Multi-Modal Health Tracking</h3>
+                    <p class="feature-desc">Combines voice analysis with optional wearables, smart home sensors, and medication tracking</p>
+                    <ul class="detail-list">
+                        <li class="detail-item">
+                            <span>⌚</span>
+                            Apple Watch / Fitbit
+                        </li>
+                        <li class="detail-item">
+                            <span>🏠</span>
+                            Smart Home Sensors
+                        </li>
+                        <li class="detail-item">
+                            <span>💊</span>
+                            Digital Pill Dispensers
+                        </li>
+                        <li class="detail-item">
+                            <span>🩺</span>
+                            Blood Pressure Monitors
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NHS Integration -->
+    <section class="nhs-integration-section" id="nhs">
+        <div class="container">
+            <h2 class="section-title">Built for NHS Integration</h2>
+            <p class="section-subtitle">Seamlessly connecting with Britain's healthcare system for comprehensive elderly care</p>
+
+            <div class="nhs-integration-grid">
+                <div class="integration-card flagship">
+                    <div class="card-header">
+                        <div class="nhs-logo">🏥</div>
+                        <div>
+                            <div class="card-title">NHS App Integration</div>
+                            <span class="integration-status planned">Planned 2027</span>
+                        </div>
+                    </div>
+                    <p class="card-desc">Direct integration with NHS App for seamless health record sharing and appointment management</p>
+                    <ul class="detail-list">
+                        <li class="detail-item">
+                            <span>📋</span>
+                            Automatic health summary sharing with GPs
+                        </li>
+                        <li class="detail-item">
+                            <span>💊</span>
+                            Medication adherence reporting to healthcare providers
+                        </li>
+                        <li class="detail-item">
+                            <span>📅</span>
+                            Appointment reminders and preparation
+                        </li>
+                        <li class="detail-item">
+                            <span>⚕️</span>
+                            Early warning alerts to GP practices
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="integration-card">
+                    <div class="card-header">
+                        <div class="nhs-logo">🔗</div>
+                        <div>
+                            <div class="card-title">Clinical Data Exchange</div>
+                            <span class="integration-status planned">In Development</span>
+                        </div>
+                    </div>
+                    <p class="card-desc">FHIR-compliant data exchange with NHS Digital systems</p>
+                    <div class="flow-diagram">
+                        <div class="flow-step">🎤<br>Voice Analysis</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">🧠<br>AI Processing</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">📊<br>Health Insights</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-step">🏥<br>NHS Records</div>
+                    </div>
+                </div>
+
+                <div class="integration-card">
+                    <div class="card-header">
+                        <div class="nhs-logo">🚨</div>
+                        <div>
+                            <div class="card-title">Smart NHS Triage</div>
+                            <span class="integration-status research">Research Phase</span>
+                        </div>
+                    </div>
+                    <p class="card-desc">Intelligent system knowing when to recommend NHS 111, GP visits, or emergency services</p>
+                    <div class="flow-diagram">
+                        <div class="flow-step" style="background: var(--accent-green);">Routine - Schedule GP</div>
+                        <div class="flow-step" style="background: var(--secondary-orange);">Urgent - NHS 111</div>
+                        <div class="flow-step" style="background: #DC2626; color: white;">Emergency - 999</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-subtitle">Benefits for NHS and Healthcare</div>
+            <div class="nhs-benefits">
+                <div class="benefit-stat">
+                    <div class="benefit-icon">📉</div>
+                    <div class="benefit-title">Reduced Emergency Admissions</div>
+                    <div class="benefit-desc">Early detection prevents 15-25% of avoidable elderly emergency hospital visits</div>
+                </div>
+                <div class="benefit-stat">
+                    <div class="benefit-icon">📊</div>
+                    <div class="benefit-title">Better Patient Outcomes</div>
+                    <div class="benefit-desc">GPs receive continuous patient data between appointments</div>
+                </div>
+                <div class="benefit-stat">
+                    <div class="benefit-icon">💰</div>
+                    <div class="benefit-title">Cost Savings</div>
+                    <div class="benefit-desc">Prevention saves NHS estimated £2,500 per elderly patient annually</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits-section">
+        <div class="container">
+            <h2 class="section-title">Transforming Family Care</h2>
+            
+            <div class="benefits-grid">
+                <div class="benefits-card elderly-benefits">
+                    <h3 class="card-title-large">For Your Elderly Parent</h3>
+                    
+                    <div class="benefit-category">
+                        <h4 class="category-title">🗣️ Daily Companionship</h4>
+                        <ul class="benefit-list">
+                            <li>Friendly conversation every morning</li>
+                            <li>AI remembers your interests and stories</li>
+                            <li>Chat when convenient - never pressured</li>
+                            <li>Feel heard and valued every day</li>
+                        </ul>
+                    </div>
+
+                    <div class="benefit-category">
+                        <h4 class="category-title">🏠 Independence & Control</h4>
+                        <ul class="benefit-list">
+                            <li>Continue living at home confidently</li>
+                            <li>You control what gets shared</li>
+                            <li>No complicated technology</li>
+                            <li>Privacy settings you understand</li>
+                        </ul>
+                    </div>
+
+                    <div class="benefit-category">
+                        <h4 class="category-title">👨👩👧👦 Family Connection</h4>
+                        <ul class="benefit-list">
+                            <li>Children call more with better topics</li>
+                            <li>Feel important part of family life</li>
+                            <li>More meaningful conversations</li>
+                            <li>Less worry about "bothering" children</li>
+                        </ul>
+                    </div>
+
+                    <div class="benefit-category">
+                        <h4 class="category-title">💊 Health & Wellbeing</h4>
+                        <ul class="benefit-list">
+                            <li>Gentle medication reminders</li>
+                            <li>Help preparing for doctor visits</li>
+                            <li>Early detection of health changes</li>
+                            <li>Emergency help one button away</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="benefits-card children-benefits">
+                    <h3 class="card-title-large">For You (Adult Children)</h3>
+                    
+                    <div class="benefit-category">
+                        <h4 class="category-title">😌 Peace of Mind</h4>
+                        <ul class="benefit-list">
+                            <li>Wake up calm knowing system monitors</li>
+                            <li>Focus on work without constant worry</li>
+                            <li>Take vacations without guilt</li>
+                            <li>Sleep better with early problem detection</li>
+                        </ul>
+                    </div>
+
+                    <div class="benefit-category">
+                        <h4 class="category-title">💬 Better Communication</h4>
+                        <ul class="benefit-list">
+                            <li>Know what to ask when you call</li>
+                            <li>Deeper, meaningful conversations</li>
+                            <li>Understand parents' daily reality</li>
+                            <li>All siblings get same information</li>
+                        </ul>
+                    </div>
+
+                    <div class="benefit-category">
+                        <h4 class="category-title">⏰ Time & Efficiency</h4>
+                        <ul class="benefit-list">
+                            <li>Save 5-7 hours/week worry time</li>
+                            <li>Fewer emergency trips to parents</li>
+                            <li>Plan visits strategically</li>
+                            <li>Make informed care decisions</li>
+                        </ul>
+                    </div>
+
+                    <div class="benefit-category">
+                        <h4 class="category-title">🤝 Family Harmony</h4>
+                        <ul class="benefit-list">
+                            <li>Objective data prevents drama</li>
+                            <li>Fair care responsibility distribution</li>
+                            <li>Save money on preventable emergencies</li>
+                            <li>Feel like good son/daughter</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-subtitle">For The Whole Family</div>
+            <div class="family-benefits">
+                <div class="family-benefit">
+                    <div class="benefit-icon">🌉</div>
+                    <div class="benefit-title">Stronger Connections</div>
+                    <div class="benefit-desc">Grandparents stay active in grandchildren's lives</div>
+                </div>
+                <div class="family-benefit">
+                    <div class="benefit-icon">🛡️</div>
+                    <div class="benefit-title">Crisis Preparedness</div>
+                    <div class="benefit-desc">Everyone knows emergency plan and medical info</div>
+                </div>
+                <div class="family-benefit">
+                    <div class="benefit-icon">❤️</div>
+                    <div class="benefit-title">Emotional Security</div>
+                    <div class="benefit-desc">Elderly feel loved daily, children feel responsible</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Validation -->
+    <section class="research-section">
+        <div class="container">
+            <h2 class="section-title">Built on Deep Understanding</h2>
+            
+            <div class="research-stats">
+                <div class="research-stat">
+                    <div class="stat-number">80+</div>
+                    <div class="stat-label">Family interviews across UK</div>
+                </div>
+                <div class="research-stat">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">Months of user research</div>
+                </div>
+                <div class="research-stat">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Families want this solution</div>
+                </div>
+            </div>
+
+            <div class="section-subtitle">Key Research Findings</div>
+            <div class="findings-grid">
+                <div class="finding-item">
+                    <div class="finding-percentage">94%</div>
+                    <div class="finding-text">want proactive health insights, not just emergency alerts</div>
+                </div>
+                <div class="finding-item">
+                    <div class="finding-percentage">89%</div>
+                    <div class="finding-text">of elderly prefer voice interaction over smartphone apps</div>
+                </div>
+                <div class="finding-item">
+                    <div class="finding-percentage">76%</div>
+                    <div class="finding-text">say current solutions feel "cold and clinical"</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Roadmap -->
+    <section class="roadmap-section">
+        <div class="container">
+            <h2 class="section-title">Our Journey to Launch</h2>
+            
+            <div class="roadmap-timeline">
+                <div class="timeline-item current">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-period">Now - Q4 2025</div>
+                        <h3 class="timeline-title">Foundation & Research</h3>
+                        <p class="timeline-desc">Building the foundation for revolutionary family care technology</p>
+                        <ul class="timeline-milestones">
+                            <li>User research with 100+ families</li>
+                            <li>Clinical advisory board building</li>
+                            <li>AI architecture planning</li>
+                            <li>NHS partnership discussions</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-period">Q1-Q2 2026</div>
+                        <h3 class="timeline-title">AI Development</h3>
+                        <p class="timeline-desc">Creating the world's most advanced family health AI companion</p>
+                        <ul class="timeline-milestones">
+                            <li>Conversational AI training</li>
+                            <li>Health analytics engine</li>
+                            <li>NHS integration planning</li>
+                            <li>Privacy framework implementation</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-period">Q3 2026</div>
+                        <h3 class="timeline-title">Beta Testing</h3>
+                        <p class="timeline-desc">Real families, real insights, real impact</p>
+                        <ul class="timeline-milestones">
+                            <li>50 families beta program</li>
+                            <li>Clinical validation studies</li>
+                            <li>NHS pilot preparations</li>
+                            <li>AI model refinement</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-period">Q4 2026</div>
+                        <h3 class="timeline-title">Launch</h3>
+                        <p class="timeline-desc">Transforming family care across the UK</p>
+                        <ul class="timeline-milestones">
+                            <li>Public launch across UK</li>
+                            <li>NHS integration rollout</li>
+                            <li>Healthcare partnerships</li>
+                            <li>Community support programs</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Signup Section -->
+    <section class="signup-section" id="signup">
+        <div class="container">
+            <h2 class="section-title">Join the Movement</h2>
+            <p class="section-subtitle">Be among the first families to experience BridgeHome's AI health companion with NHS integration</p>
+            
+            <div class="signup-card">
+                <h3 style="color: var(--primary-blue); margin-bottom: 1rem; font-size: 1.5rem;">Join Waiting List</h3>
+                <p style="color: var(--text-medium); margin-bottom: 2rem;">Be first to try BridgeHome when we launch</p>
+                
+                <form class="signup-form" id="signupForm">
+                    <input type="email" class="email-input" placeholder="Your email address" required>
+                    <select class="family-situation" required>
+                        <option value="">Your family situation</option>
+                        <option value="caring">I care for elderly parents</option>
+                        <option value="elderly">I'm an elderly parent</option>
+                        <option value="sandwich">I'm sandwich generation</option>
+                        <option value="healthcare">I'm a healthcare provider</option>
+                    </select>
+                    <button type="submit" class="signup-submit">Join Waiting List</button>
+                </form>
+
+                <div class="success-message" id="successMessage">
+                    Thank you! You're now on our waiting list. We'll keep you updated on our progress.
+                </div>
+                
+                <ul class="signup-benefits">
+                    <li>✅ Early beta access</li>
+                    <li>✅ Influence product development</li>
+                    <li>✅ Monthly progress updates</li>
+                    <li>✅ NHS integration updates</li>
+                </ul>
+            </div>
+            
+            <div class="community-stats">
+                <div class="community-stat">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Families on waiting list</div>
+                </div>
+                <div class="community-stat">
+                    <div class="stat-number">80+</div>
+                    <div class="stat-label">Research participants</div>
+                </div>
+                <div class="community-stat">
+                    <div class="stat-number">Growing</div>
+                    <div class="stat-label">Healthcare partnerships</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="section-title">Common Questions</h2>
+            
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h3 class="faq-question">When will BridgeHome be available?</h3>
+                    <p class="faq-answer">Beta launch Q3 2026, public launch Q4 2026. NHS integration planned for 2027.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3 class="faq-question">Will elderly people actually use this?</h3>
+                    <p class="faq-answer">89% of elderly prefer voice interaction over apps. We're designing voice-first with optional visual interface.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3 class="faq-question">How much will it cost?</h3>
+                    <p class="faq-answer">Pricing TBD based on user research. Goal: accessible to all families, likely similar to personal alarm services.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3 class="faq-question">Is this just surveillance?</h3>
+                    <p class="faq-answer">No - we build connection, not surveillance. Elderly users control sharing, families get insights not monitoring data.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3 class="faq-question">What about NHS data sharing?</h3>
+                    <p class="faq-answer">Full GDPR compliance with NHS-grade security. Healthcare integration only with explicit patient consent.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3 class="faq-question">How is this different from existing solutions?</h3>
+                    <p class="faq-answer">First proactive, family-focused AI companion with advanced health analytics and NHS integration ready.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Form submission handling
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Show loading state
+            const submitBtn = this.querySelector('.signup-submit');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Joining...';
+            submitBtn.classList.add('loading');
+            
+            // Simulate form submission (replace with actual API call)
+            setTimeout(() => {
+                submitBtn.textContent = originalText;
+                submitBtn.classList.remove('loading');
+                
+                // Show success message
+                document.getElementById('successMessage').classList.add('show');
+                
+                // Reset form
+                this.reset();
+                
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    document.getElementById('successMessage').classList.remove('show');
+                }, 5000);
+            }, 2000);
+        });
+
+        // Add animation on scroll for timeline items
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe timeline items and cards
+        document.querySelectorAll('.timeline-item, .ai-feature-card, .benefit-stat').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Mobile menu toggle (if you want to add mobile menu)
+        function toggleMobileMenu() {
+            const navMenu = document.querySelector('.nav-menu');
+            navMenu.classList.toggle('mobile-open');
+        }
+    </script>
+</body>
+</html>
