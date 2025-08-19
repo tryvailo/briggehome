@@ -10,7 +10,6 @@
             --primary-blue: #2563EB;
             --secondary-orange: #FB923C;
             --accent-green: #10B981;
-            --nhs-blue: #005EB8;
             --background-white: #FFFFFF;
             --background-grey: #F8FAFC;
             --text-dark: #1F2937;
@@ -119,6 +118,18 @@
             text-align: center;
         }
 
+        .hero-content-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-top: 2rem;
+        }
+
+        .hero-text {
+            text-align: left;
+        }
+
         .hero-headline {
             font-size: 3.5rem;
             font-weight: 700;
@@ -135,9 +146,6 @@
             font-size: 1.3rem;
             color: var(--text-medium);
             margin-bottom: 1.5rem;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
         }
 
         .hero-emotional-hook {
@@ -152,14 +160,13 @@
             font-size: 1.1rem;
             color: var(--text-dark);
             font-style: italic;
-            text-align: center;
+            text-align: left;
             margin: 0;
         }
 
         .hero-ctas {
             display: flex;
             gap: 1rem;
-            justify-content: center;
             margin-bottom: 3rem;
             flex-wrap: wrap;
         }
@@ -205,9 +212,7 @@
         .hero-trust {
             display: flex;
             gap: 2rem;
-            justify-content: center;
             flex-wrap: wrap;
-            margin-bottom: 3rem;
         }
 
         .trust-item {
@@ -218,93 +223,24 @@
             gap: 8px;
         }
 
-        .split-image {
-            display: flex;
-            gap: 2rem;
-            justify-content: center;
-            margin-top: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .image-container {
-            text-align: center;
-        }
-
-        .placeholder-image {
-            width: 200px;
-            height: 150px;
+        /* Real Images Styles */
+        .hero-image,
+        .benefits-card-image {
+            width: 100%;
+            height: auto;
             border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            margin-bottom: 1rem;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            object-fit: cover;
         }
 
-        .worried { 
-            background: #FEF2F2; 
-        }
-        
-        .lonely { 
-            background: #F3F4F6; 
-        }
-
-        .image-caption {
-            font-size: 0.9rem;
-            color: var(--text-medium);
-            font-weight: 500;
-        }
-
-        /* Founder Story */
-        .founder-section {
-            padding: 80px 0;
-            background: white;
-        }
-
-        .founder-card {
-            background: var(--background-grey);
+        .hero-image {
+            max-height: 500px;
             border-radius: 20px;
-            padding: 3rem;
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-            max-width: 900px;
-            margin: 0 auto;
         }
 
-        .founder-avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: var(--primary-blue);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            color: white;
-            flex-shrink: 0;
-        }
-
-        .founder-content {
-            flex: 1;
-        }
-
-        .founder-quote {
-            font-size: 1.2rem;
-            color: var(--text-dark);
+        .benefits-card-image {
+            max-height: 200px;
             margin-bottom: 1.5rem;
-            font-style: italic;
-            line-height: 1.6;
-        }
-
-        .founder-info {
-            color: var(--text-medium);
-        }
-
-        .founder-name {
-            font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 0.5rem;
         }
 
         /* Problem Section */
@@ -359,165 +295,6 @@
             font-size: 1.1rem;
         }
 
-        .pain-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            margin: 3rem 0;
-        }
-
-        .pain-item {
-            background: white;
-            padding: 2rem;
-            border-radius: 16px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-        }
-
-        .pain-header {
-            color: var(--primary-blue);
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-            font-weight: 600;
-        }
-
-        .pain-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .pain-list li {
-            margin-bottom: 0.8rem;
-            padding-left: 0;
-            color: var(--text-medium);
-        }
-
-        /* Contrast Section - Reality vs Better Way */
-        .contrast-section {
-            padding: 72px 0;
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .contrast-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
-            pointer-events: none;
-        }
-
-        .contrast-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            gap: 48px;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .contrast-card {
-            border-radius: 20px;
-            padding: 40px 32px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.08);
-            min-width: 320px;
-            max-width: 420px;
-            flex: 1;
-            transition: all 0.3s ease;
-        }
-
-        .contrast-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.12);
-        }
-
-        .contrast-card.reality {
-            border-left: 6px solid #fb7185;
-            background: linear-gradient(135deg, #fff7f7 0%, #fef2f2 100%);
-        }
-
-        .contrast-card.better {
-            border-left: 6px solid #34d399;
-            background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
-        }
-
-        .card-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 24px;
-        }
-
-        .card-icon {
-            font-size: 2rem;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
-        }
-
-        .card-header h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-dark);
-            margin: 0;
-        }
-
-        .card-points {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .point {
-            background: rgba(255, 255, 255, 0.95);
-            margin: 0;
-            border-radius: 12px;
-            padding: 16px 20px;
-            font-size: 1.1rem;
-            font-style: italic;
-            display: flex;
-            gap: 12px;
-            align-items: flex-start;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-            transition: all 0.2s ease;
-        }
-
-        .point:hover {
-            transform: translateX(4px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-        }
-
-        .point-icon {
-            font-size: 1.3rem;
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
-
-        .point-text {
-            color: var(--text-dark);
-            line-height: 1.5;
-            font-weight: 500;
-        }
-
-        .arrow-transition {
-            font-size: 3rem;
-            color: #10b981;
-            align-self: center;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
         .broken-solutions {
             margin-top: 3rem;
         }
@@ -553,92 +330,6 @@
             color: var(--text-medium);
         }
 
-        /* Technology Simplification Section */
-        .technology-simplification-section {
-            padding: 80px 0;
-            background: linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 50%, #F0F9FF 100%);
-        }
-
-        .tech-philosophy {
-            text-align: center;
-            margin: 3rem 0;
-            padding: 2rem;
-            background: rgba(37, 99, 235, 0.05);
-            border-radius: 20px;
-        }
-
-        .philosophy-quote {
-            font-size: 1.3rem;
-            color: var(--primary-blue);
-            font-style: italic;
-            margin: 1rem 0;
-            padding: 0 2rem;
-            border-left: 4px solid var(--primary-blue);
-        }
-
-        .demo-title {
-            color: var(--primary-blue);
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-
-        /* Tech Benefits */
-        .tech-benefits {
-            padding: 80px 0;
-            background: var(--background-grey);
-        }
-
-        .benefits-comparison {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            margin-top: 3rem;
-        }
-
-        .benefit-column {
-            padding: 2rem;
-            background: var(--background-grey);
-            border-radius: 16px;
-        }
-
-        .benefit-column-title {
-            text-align: center;
-            color: var(--primary-blue);
-            margin-bottom: 2rem;
-            font-size: 1.5rem;
-        }
-
-        .benefit-items {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .benefit-item {
-            display: flex;
-            gap: 1rem;
-            padding: 1rem;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-
-        .benefit-icon {
-            font-size: 1.5rem;
-            flex-shrink: 0;
-        }
-
-        .benefit-content h5 {
-            color: var(--text-dark);
-            margin-bottom: 0.5rem;
-        }
-
-        .benefit-content p {
-            color: var(--text-medium);
-            font-size: 0.9rem;
-            line-height: 1.4;
-        }
-
         /* Solution Section */
         .solution-section {
             padding: 80px 0;
@@ -652,7 +343,7 @@
 
         .how-it-works {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 3rem;
             margin: 3rem 0;
         }
@@ -703,7 +394,7 @@
             margin: 0 auto;
         }
 
-        /* AI Health Intelligence */
+        /* Health Intelligence */
         .health-intelligence-section {
             padding: 80px 0;
             background: var(--background-grey);
@@ -758,128 +449,10 @@
             color: var(--text-medium);
         }
 
-        /* NHS Integration */
-        .nhs-integration-section {
-            padding: 80px 0;
-            background: white;
-        }
-
-        .nhs-integration-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-
-        .integration-card {
-            background: var(--background-grey);
-            border-radius: 20px;
-            padding: 2rem;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-        }
-
-        .integration-card.flagship {
-            border: 3px solid var(--nhs-blue);
-            background: white;
-        }
-
-        .card-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .nhs-logo {
-            font-size: 2rem;
-        }
-
-        .card-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: var(--text-dark);
-        }
-
-        .integration-status {
-            background: var(--accent-green);
-            color: white;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-
-        .integration-status.planned {
-            background: var(--secondary-orange);
-        }
-
-        .integration-status.research {
-            background: var(--text-medium);
-        }
-
-        .card-desc {
-            color: var(--text-medium);
-            margin-bottom: 1.5rem;
-        }
-
-        .flow-diagram {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: 1rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .flow-step {
-            background: var(--primary-blue);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .flow-arrow {
-            font-size: 1.5rem;
-            color: var(--text-medium);
-        }
-
-        .nhs-benefits {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .benefit-stat {
-            background: white;
-            padding: 2rem;
-            border-radius: 16px;
-            text-align: center;
-            border: 2px solid var(--nhs-blue);
-        }
-
-        .benefit-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .benefit-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: var(--text-dark);
-        }
-
-        .benefit-desc {
-            color: var(--text-medium);
-        }
-
         /* Benefits Section */
         .benefits-section {
             padding: 80px 0;
-            background: var(--background-grey);
+            background: white;
         }
 
         .benefits-grid {
@@ -890,7 +463,7 @@
         }
 
         .benefits-card {
-            background: white;
+            background: var(--background-grey);
             padding: 2rem;
             border-radius: 20px;
             border: 3px solid transparent;
@@ -949,17 +522,33 @@
         }
 
         .family-benefit {
-            background: white;
+            background: var(--background-grey);
             padding: 2rem;
             border-radius: 16px;
             text-align: center;
             border: 2px solid var(--secondary-orange);
         }
 
-        /* Research Validation */
+        .benefit-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .benefit-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .benefit-desc {
+            color: var(--text-medium);
+        }
+
+        /* Research Section */
         .research-section {
             padding: 80px 0;
-            background: white;
+            background: var(--background-grey);
         }
 
         .research-stats {
@@ -972,7 +561,7 @@
         .research-stat {
             text-align: center;
             padding: 2rem;
-            background: var(--background-grey);
+            background: white;
             border-radius: 16px;
         }
 
@@ -984,7 +573,7 @@
         }
 
         .finding-item {
-            background: var(--background-grey);
+            background: white;
             padding: 2rem;
             border-radius: 16px;
             text-align: center;
@@ -999,21 +588,6 @@
 
         .finding-text {
             color: var(--text-medium);
-        }
-
-        .partnerships {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .partnership-card {
-            background: var(--background-grey);
-            padding: 2rem;
-            border-radius: 16px;
-            text-align: center;
-            border: 2px solid var(--nhs-blue);
         }
 
         /* Why Now Section */
@@ -1061,7 +635,6 @@
             font-size: 1.3rem;
         }
 
-        /* Forces Grid */
         .forces-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -1163,12 +736,10 @@
             border-left: 3px solid #3B82F6;
         }
 
-
-
         /* Roadmap */
         .roadmap-section {
             padding: 80px 0;
-            background: var(--background-grey);
+            background: white;
         }
 
         .roadmap-timeline {
@@ -1225,7 +796,7 @@
         }
 
         .timeline-content {
-            background: white;
+            background: var(--background-grey);
             padding: 2rem;
             border-radius: 16px;
             box-shadow: 0 4px 16px rgba(0,0,0,0.1);
@@ -1402,105 +973,6 @@
             line-height: 1.6;
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .hero-headline {
-                font-size: 2.5rem;
-            }
-            
-            .hero-emotional-hook {
-                margin: 1rem 0;
-                padding: 1rem;
-            }
-
-            .emotional-text {
-                font-size: 1rem;
-            }
-            
-            .hero-ctas {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .pain-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .contrast-container {
-                flex-direction: column;
-                gap: 24px;
-            }
-
-            .contrast-card {
-                min-width: auto;
-                max-width: 100%;
-            }
-
-            .arrow-transition {
-                transform: rotate(90deg);
-                font-size: 2.5rem;
-            }
-            
-            .roadmap-timeline::before {
-                left: 30px;
-            }
-            
-            .timeline-marker {
-                left: 30px;
-            }
-            
-            .timeline-item:nth-child(odd) .timeline-content,
-            .timeline-item:nth-child(even) .timeline-content {
-                margin-left: 60px;
-                margin-right: 0;
-                padding-left: 1rem;
-                padding-right: 0;
-                text-align: left;
-            }
-            
-            .nav-menu {
-                display: none;
-            }
-            
-            .community-stats {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .split-image {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .benefits-comparison {
-                grid-template-columns: 1fr;
-            }
-
-
-
-
-
-            .why-now-section .section-title {
-                font-size: 2.5rem;
-            }
-
-            .forces-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 480px) {
-            /* No additional mobile styles needed */
-        }
-
-        /* Accessibility */
-        .cta-primary:focus,
-        .signup-submit:focus,
-        .cta-nav:focus {
-            outline: 3px solid var(--secondary-orange);
-            outline-offset: 2px;
-        }
-
         /* Success States */
         .success-message {
             background: #DCFCE7;
@@ -1522,6 +994,67 @@
             opacity: 0.6;
             pointer-events: none;
         }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-content-wrapper {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .hero-text {
+                text-align: center;
+            }
+            
+            .hero-headline {
+                font-size: 2.5rem;
+            }
+            
+            .how-it-works {
+                grid-template-columns: 1fr;
+            }
+            
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .forces-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+            
+            .roadmap-timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-marker {
+                left: 30px;
+            }
+            
+            .timeline-item:nth-child(odd) .timeline-content,
+            .timeline-item:nth-child(even) .timeline-content {
+                margin-left: 60px;
+                margin-right: 0;
+                padding-left: 1rem;
+                padding-right: 0;
+                text-align: left;
+            }
+            
+            .why-now-section .section-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Accessibility */
+        .cta-primary:focus,
+        .signup-submit:focus,
+        .cta-nav:focus {
+            outline: 3px solid var(--secondary-orange);
+            outline-offset: 2px;
+        }
     </style>
 </head>
 <body>
@@ -1541,9 +1074,7 @@
                 <li><a href="#vision">Vision</a></li>
                 <li><a href="#problem">Problem</a></li>
                 <li><a href="#solution">Solution</a></li>
-                <li><a href="#tech-benefits">Benefits</a></li>
                 <li><a href="#health-ai">Technology</a></li>
-                <li><a href="#nhs">NHS</a></li>
                 <li><a href="#why-now">Why Now</a></li>
             </ul>
             <a href="#signup" class="cta-nav">Help Them Thrive Today</a>
@@ -1553,28 +1084,36 @@
     <!-- Hero Section -->
     <section class="hero-section" id="vision">
         <div class="container">
-            <h1 class="hero-headline">Help your parents live their best life</h1>
-            <p class="hero-subheadline">The AI companion that turns daily worry into daily connection</p>
+            <h1 class="hero-headline" style="text-align: center; margin-bottom: 1rem;">Help your parents live their best life</h1>
+            <p class="hero-subheadline" style="text-align: center; margin-bottom: 3rem;">The AI companion that turns daily worry into daily connection</p>
             
-            <div class="hero-emotional-hook">
-                <p class="emotional-text">"What if something happened and I wouldn't know for days?" - Every caring child knows this fear. Now there's a better way.</p>
-            </div>
-            
-            <div class="hero-ctas">
-                <a href="#signup" class="cta-primary">Help Them Thrive Today</a>
-                <a href="#solution" class="cta-secondary">See How It Works</a>
-            </div>
+            <div class="hero-content-wrapper">
+                <div class="hero-text">
+                    <div class="hero-emotional-hook">
+                        <p class="emotional-text">"What if something happened and I wouldn't know for days?" - Every caring child knows this fear. Now there's a better way.</p>
+                    </div>
+                    
+                    <div class="hero-ctas">
+                        <a href="#signup" class="cta-primary">Help Them Thrive Today</a>
+                        <a href="#solution" class="cta-secondary">See How It Works</a>
+                    </div>
 
-            <div class="hero-trust">
-                <div class="trust-item">
-                    <span>👍</span> Built by families, for families
+                    <div class="hero-trust">
+                        <div class="trust-item">
+                            <span>👍</span> Built by families, for families
+                        </div>
+                        <div class="trust-item">
+                            <span>🛡️</span> Privacy-first design
+                        </div>
+                        <div class="trust-item">
+                            <span>🧠</span> AI that truly cares
+                        </div>
+                    </div>
                 </div>
-                <div class="trust-item">
-                    <span>🏥</span> NHS integration ready
-                </div>
-                <div class="trust-item">
-                    <span>🧠</span> AI that truly cares
-                </div>
+                
+                <img src="images/hero-elderly-phone-desktop.png" 
+                     alt="Пожилая женщина естественно разговаривает с AI через мобильный телефон" 
+                     class="hero-image">
             </div>
         </div>
     </section>
@@ -1596,82 +1135,6 @@
                 <div class="stat-item">
                     <span class="stat-number">Daily</span>
                     <div class="stat-label">Anxiety affects entire families</div>
-                </div>
-            </div>
-
-            <div class="contrast-section">
-                <div class="contrast-container">
-                    <div class="contrast-card reality">
-                        <div class="card-header">
-                            <span class="card-icon">⚠️</span>
-                            <h3>The Daily Reality</h3>
-                        </div>
-                        <div class="card-points">
-                            <div class="point">
-                                <span class="point-icon">🕰️</span>
-                                <span class="point-text">"What if something happened and I wouldn't know for days?"</span>
-                            </div>
-                            <div class="point">
-                                <span class="point-icon">📞</span>
-                                <span class="point-text">"Every missed call sends your mind racing"</span>
-                            </div>
-                            <div class="point">
-                                <span class="point-icon">😟</span>
-                                <span class="point-text">"The guilt of being too busy balanced against fear of being overprotective"</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="arrow-transition">
-                        →
-                    </div>
-
-                    <div class="contrast-card better">
-                        <div class="card-header">
-                            <span class="card-icon">🌿</span>
-                            <h3>A Better Way</h3>
-                        </div>
-                        <div class="card-points">
-                            <div class="point">
-                                <span class="point-icon">💚</span>
-                                <span class="point-text">"Know they're not just surviving, but thriving"</span>
-                            </div>
-                            <div class="point">
-                                <span class="point-icon">☀️</span>
-                                <span class="point-text">"Peace of mind that lets you live your own life fully"</span>
-                            </div>
-                            <div class="point">
-                                <span class="point-icon">📱</span>
-                                <span class="point-text">"Daily connection without daily worry"</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="section-subtitle">The Daily Struggle</div>
-            
-            <div class="pain-grid">
-                <div class="pain-item">
-                    <h3 class="pain-header">Adult Children Feel:</h3>
-                    <ul class="pain-list">
-                        <li>😰 "Is mum OK today?" - constant worry</li>
-                        <li>📱 Guilt from not calling enough</li>
-                        <li>💼 Work interruptions from emergency calls</li>
-                        <li>🏥 Learning about problems too late</li>
-                        <li>😔 Helplessness when living far away</li>
-                    </ul>
-                </div>
-                
-                <div class="pain-item">
-                    <h3 class="pain-header">Elderly Parents Feel:</h3>
-                    <ul class="pain-list">
-                        <li>🏠 "I don't want to burden my children"</li>
-                        <li>😔 Loneliness and isolation</li>
-                        <li>📱 "These devices are too complicated"</li>
-                        <li>👥 Disconnection from family life</li>
-                        <li>😟 Fear of losing independence</li>
-                    </ul>
                 </div>
             </div>
 
@@ -1725,97 +1188,9 @@
 
                 <div class="work-step">
                     <div class="step-number">3</div>
-                    <h3 class="step-title">Family Connection + NHS Integration</h3>
+                    <h3 class="step-title">Family Connection + Healthcare Integration</h3>
                     <p class="step-desc">Families receive thoughtful updates, healthcare providers get clinical-grade data, everyone stays connected</p>
                     <div class="step-visual">📊</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Why Advanced Technology Matters -->
-    <section class="tech-benefits" id="tech-benefits">
-        <div class="container">
-            <h2 class="section-title">For Peace of Mind</h2>
-            
-            <div class="benefits-comparison">
-                <div class="benefit-column">
-                    <h3 class="benefit-column-title">For Your Elderly Parent</h3>
-                    
-                    <div class="benefit-items">
-                        <div class="benefit-item">
-                            <div class="benefit-icon">🎯</div>
-                            <div class="benefit-content">
-                                <h5>No Technology Stress</h5>
-                                <p>Never worry about "doing it wrong" - just speak naturally</p>
-                            </div>
-                        </div>
-                        
-                        <div class="benefit-item">
-                            <div class="benefit-icon">🤝</div>
-                            <div class="benefit-content">
-                                <h5>Feels Human</h5>
-                                <p>AI conversation so natural it feels like talking to a caring friend</p>
-                            </div>
-                        </div>
-                        
-                        <div class="benefit-item">
-                            <div class="benefit-icon">🛡️</div>
-                            <div class="benefit-content">
-                                <h5>Privacy Respected</h5>
-                                <p>Share only what feels comfortable - AI understands boundaries</p>
-                            </div>
-                        </div>
-                        
-                        <div class="benefit-item">
-                            <div class="benefit-icon">⚡</div>
-                            <div class="benefit-content">
-                                <h5>Instant Understanding</h5>
-                                <p>No need to explain or repeat - AI gets it the first time</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="benefit-column">
-                    <h3 class="benefit-column-title">For Adult Children</h3>
-                    
-                    <div class="benefit-items">
-                        <div class="benefit-item">
-                            <div class="benefit-icon">👂</div>
-                            <div class="benefit-content">
-                                <h5>AI that listens like a caring friend</h5>
-                                <p>Notices what family might miss in brief phone calls</p>
-                            </div>
-                        </div>
-                        
-                        <div class="benefit-item">
-                            <div class="benefit-icon">💬</div>
-                            <div class="benefit-content">
-                                <h5>Turns 'How are you?' into real insights</h5>
-                                <p>Know the difference between 'fine' and actually fine</p>
-                                <p style="color: var(--accent-green); font-style: italic; margin-top: 0.5rem;">Celebrate their daily wins and joys</p>
-                            </div>
-                        </div>
-                        
-                        <div class="benefit-item">
-                            <div class="benefit-icon">🌅</div>
-                            <div class="benefit-content">
-                                <h5>Gives you confidence to live your life</h5>
-                                <p>Stay connected without constant worry or guilt</p>
-                                <p style="color: var(--accent-green); font-style: italic; margin-top: 0.5rem;">Focus on love, not fear</p>
-                            </div>
-                        </div>
-                        
-                        <div class="benefit-item">
-                            <div class="benefit-icon">📈</div>
-                            <div class="benefit-content">
-                                <h5>Understand wellbeing patterns</h5>
-                                <p>See changes over weeks and months, not just today</p>
-                                <p style="color: var(--accent-green); font-style: italic; margin-top: 0.5rem;">Watch them flourish with your support</p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -1832,26 +1207,23 @@
                     <div class="feature-icon">🧠</div>
                     <h3 class="feature-title">Conversational Health Analysis</h3>
                     <p class="feature-desc">Our AI analyzes speech patterns, mood indicators, cognitive responses, and energy levels through natural conversation</p>
+                    
                     <ul class="detail-list">
                         <li class="detail-item">
                             <span>🎤</span>
                             Speech pattern recognition (slowness, confusion, clarity)
-                            <span class="plain-english">Notices if conversation sounds different than usual</span>
                         </li>
                         <li class="detail-item">
                             <span>😊</span>
                             Emotional state analysis through tone and language
-                            <span class="plain-english">Understands mood from how things are said</span>
                         </li>
                         <li class="detail-item">
                             <span>⚡</span>
                             Energy level detection via conversation engagement
-                            <span class="plain-english">Picks up on tiredness or enthusiasm naturally</span>
                         </li>
                         <li class="detail-item">
                             <span>🧩</span>
                             Cognitive health monitoring through response patterns
-                            <span class="plain-english">Tracks mental sharpness through conversation flow</span>
                         </li>
                     </ul>
                 </div>
@@ -1860,19 +1232,13 @@
                     <div class="feature-icon">📊</div>
                     <h3 class="feature-title">Predictive Health Insights</h3>
                     <p class="feature-desc">Machine learning identifies subtle changes weeks before they become serious health concerns</p>
-                    <div class="flow-diagram">
-                        <div class="flow-step">Week 1-2<br>AI detects sleep pattern changes</div>
-                        <div class="flow-arrow">→</div>
-                        <div class="flow-step">Week 3<br>Correlates with mood changes</div>
-                        <div class="flow-arrow">→</div>
-                        <div class="flow-step">Week 4<br>Family alert: "Consider GP check"</div>
-                    </div>
                 </div>
 
                 <div class="ai-feature-card accent">
                     <div class="feature-icon">🔗</div>
                     <h3 class="feature-title">Multi-Modal Health Tracking</h3>
                     <p class="feature-desc">Combines voice analysis with optional wearables, smart home sensors, and medication tracking</p>
+                    
                     <ul class="detail-list">
                         <li class="detail-item">
                             <span>⌚</span>
@@ -1896,100 +1262,6 @@
         </div>
     </section>
 
-    <!-- NHS Integration -->
-    <section class="nhs-integration-section" id="nhs">
-        <div class="container">
-            <h2 class="section-title">Built for NHS Integration</h2>
-            <p class="section-subtitle">Seamlessly connecting with Britain's healthcare system for comprehensive elderly care</p>
-
-            <div class="nhs-integration-grid">
-                <div class="integration-card flagship">
-                    <div class="card-header">
-                        <div class="nhs-logo">🏥</div>
-                        <div>
-                            <div class="card-title">NHS App Integration</div>
-                            <span class="integration-status planned">Planned 2027</span>
-                        </div>
-                    </div>
-                    <p class="card-desc">Direct integration with NHS App for seamless health record sharing and appointment management</p>
-                    <ul class="detail-list">
-                        <li class="detail-item">
-                            <span>📋</span>
-                            Automatic health summary sharing with GPs
-                        </li>
-                        <li class="detail-item">
-                            <span>💊</span>
-                            Medication adherence reporting to healthcare providers
-                        </li>
-                        <li class="detail-item">
-                            <span>📅</span>
-                            Appointment reminders and preparation
-                        </li>
-                        <li class="detail-item">
-                            <span>⚕️</span>
-                            Early warning alerts to GP practices
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="integration-card">
-                    <div class="card-header">
-                        <div class="nhs-logo">🔗</div>
-                        <div>
-                            <div class="card-title">Clinical Data Exchange</div>
-                            <span class="integration-status planned">In Development</span>
-                        </div>
-                    </div>
-                    <p class="card-desc">FHIR-compliant data exchange with NHS Digital systems</p>
-                    <div class="flow-diagram">
-                        <div class="flow-step">🎤<br>Voice Analysis</div>
-                        <div class="flow-arrow">→</div>
-                        <div class="flow-step">🧠<br>AI Processing</div>
-                        <div class="flow-arrow">→</div>
-                        <div class="flow-step">📊<br>Health Insights</div>
-                        <div class="flow-arrow">→</div>
-                        <div class="flow-step">🏥<br>NHS Records</div>
-                    </div>
-                </div>
-
-                <div class="integration-card">
-                    <div class="card-header">
-                        <div class="nhs-logo">🚨</div>
-                        <div>
-                            <div class="card-title">Smart NHS Triage</div>
-                            <span class="integration-status research">Research Phase</span>
-                        </div>
-                    </div>
-                    <p class="card-desc">Intelligent system knowing when to recommend NHS 111, GP visits, or emergency services</p>
-                    <div class="flow-diagram">
-                        <div class="flow-step" style="background: var(--accent-green);">Routine - Schedule GP</div>
-                        <div class="flow-step" style="background: var(--secondary-orange);">Urgent - NHS 111</div>
-                        <div class="flow-step" style="background: #DC2626; color: white;">Emergency - 999</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="section-subtitle">Benefits for NHS and Healthcare</div>
-            <div class="nhs-benefits">
-                <div class="benefit-stat">
-                    <div class="benefit-icon">📉</div>
-                    <div class="benefit-title">Reduced Emergency Admissions</div>
-                    <div class="benefit-desc">Early detection prevents 15-25% of avoidable elderly emergency hospital visits</div>
-                </div>
-                <div class="benefit-stat">
-                    <div class="benefit-icon">📊</div>
-                    <div class="benefit-title">Better Patient Outcomes</div>
-                    <div class="benefit-desc">GPs receive continuous patient data between appointments</div>
-                </div>
-                <div class="benefit-stat">
-                    <div class="benefit-icon">💰</div>
-                    <div class="benefit-title">Cost Savings</div>
-                    <div class="benefit-desc">Prevention saves NHS estimated £2,500 per elderly patient annually</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Benefits Section -->
     <section class="benefits-section">
         <div class="container">
@@ -1998,6 +1270,10 @@
             <div class="benefits-grid">
                 <div class="benefits-card elderly-benefits">
                     <h3 class="card-title-large">For Your Elderly Parent</h3>
+                    
+                    <img src="images/benefits-elderly-daily-life.png" 
+                         alt="Активная пожилая пара наслаждается повседневной жизнью дома" 
+                         class="benefits-card-image">
                     
                     <div class="benefit-category">
                         <h4 class="category-title">🗣️ Daily Companionship</h4>
@@ -2042,6 +1318,10 @@
 
                 <div class="benefits-card children-benefits">
                     <h3 class="card-title-large">For You (Adult Children)</h3>
+                    
+                    <img src="images/benefits-adult-child-worklife.png" 
+                         alt="Молодая мама спокойно работает дома, получая уведомления о здоровье родителей" 
+                         class="benefits-card-image">
                     
                     <div class="benefit-category">
                         <h4 class="category-title">😌 Peace of Mind</h4>
@@ -2203,9 +1483,9 @@
                         <span class="stat-number">£9.5M</span>
                         <span class="stat-label">digital inclusion funding available</span>
                     </div>
-                    <p class="force-description">NHS digital transformation is a national priority. Government actively seeking technology solutions for aging population challenges.</p>
+                    <p class="force-description">Healthcare digital transformation is a national priority. Government actively seeking technology solutions for aging population challenges.</p>
                     <div class="force-proof">
-                        <div class="proof-item">NHS digital-first mandate</div>
+                        <div class="proof-item">Healthcare digital-first mandate</div>
                         <div class="proof-item">"Aging in place" policy priority</div>
                         <div class="proof-item">Preventive care investment focus</div>
                     </div>
@@ -2241,9 +1521,9 @@
                     </div>
                     <div class="force-stat">
                         <span class="stat-number">£4.5B</span>
-                        <span class="stat-label">NHS spends on preventable elderly admissions</span>
+                        <span class="stat-label">Healthcare spends on preventable elderly admissions</span>
                     </div>
-                    <p class="force-description">Healthcare costs are unsustainable. Families and NHS desperately need cost-effective solutions that prevent rather than react.</p>
+                    <p class="force-description">Healthcare costs are unsustainable. Families and healthcare systems desperately need cost-effective solutions that prevent rather than react.</p>
                     <div class="force-proof">
                         <div class="proof-item">15-25% admission reduction possible</div>
                         <div class="proof-item">£2,500 annual savings per patient</div>
@@ -2251,8 +1531,6 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
     </section>
 
@@ -2272,7 +1550,7 @@
                             <li>User research with 100+ families</li>
                             <li>Clinical advisory board building</li>
                             <li>AI architecture planning</li>
-                            <li>NHS partnership discussions</li>
+                            <li>Healthcare partnerships exploration</li>
                         </ul>
                     </div>
                 </div>
@@ -2286,7 +1564,7 @@
                         <ul class="timeline-milestones">
                             <li>Conversational AI training</li>
                             <li>Health analytics engine</li>
-                            <li>NHS integration planning</li>
+                            <li>Healthcare integration planning</li>
                             <li>Privacy framework implementation</li>
                         </ul>
                     </div>
@@ -2301,7 +1579,7 @@
                         <ul class="timeline-milestones">
                             <li>50 families beta program</li>
                             <li>Clinical validation studies</li>
-                            <li>NHS pilot preparations</li>
+                            <li>Healthcare pilot preparations</li>
                             <li>AI model refinement</li>
                         </ul>
                     </div>
@@ -2315,7 +1593,7 @@
                         <p class="timeline-desc">Transforming family care across the UK</p>
                         <ul class="timeline-milestones">
                             <li>Public launch across UK</li>
-                            <li>NHS integration rollout</li>
+                            <li>Healthcare integration rollout</li>
                             <li>Healthcare partnerships</li>
                             <li>Community support programs</li>
                         </ul>
@@ -2355,7 +1633,7 @@
                     <li>✅ Early beta access</li>
                     <li>✅ Influence product development</li>
                     <li>✅ Monthly progress updates</li>
-                    <li>✅ NHS integration updates</li>
+                    <li>✅ Family care insights</li>
                 </ul>
             </div>
             
@@ -2384,7 +1662,7 @@
             <div class="faq-grid">
                 <div class="faq-item">
                     <h3 class="faq-question">When will BridgeHome be available?</h3>
-                    <p class="faq-answer">Beta launch Q3 2026, public launch Q4 2026. NHS integration planned for 2027.</p>
+                    <p class="faq-answer">Beta launch Q3 2026, public launch Q4 2026. We're building the most advanced family care platform.</p>
                 </div>
                 
                 <div class="faq-item">
@@ -2413,13 +1691,13 @@
                 </div>
                 
                 <div class="faq-item">
-                    <h3 class="faq-question">What about NHS data sharing?</h3>
-                    <p class="faq-answer">Full GDPR compliance with NHS-grade security. Healthcare integration only with explicit patient consent.</p>
+                    <h3 class="faq-question">How is data protected?</h3>
+                    <p class="faq-answer">Full GDPR compliance with medical-grade security. Data sharing only with explicit consent from elderly users.</p>
                 </div>
                 
                 <div class="faq-item">
                     <h3 class="faq-question">How is this different from existing solutions?</h3>
-                    <p class="faq-answer">First proactive, family-focused AI companion with advanced health analytics and NHS integration ready.</p>
+                    <p class="faq-answer">First proactive, family-focused AI companion with advanced health analytics and seamless family connection features.</p>
                 </div>
             </div>
         </div>
@@ -2471,4 +1749,25 @@
         // Add animation on scroll for timeline items
         const observerOptions = {
             threshold: 0.1,
-            rootMargin: '0px 0px -50px 
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.timeline-item, .force-card, .work-step').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
