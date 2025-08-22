@@ -1,0 +1,2232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomeBridge - Family Registration</title>
+    <style>
+        /* CSS Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #374151;
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            min-height: 100vh;
+        }
+
+        /* Brand Colors */
+        :root {
+            --primary-color: #4f46e5;
+            --secondary-color: #10b981;
+            --error-color: #ef4444;
+            --warning-color: #f59e0b;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Styles */
+        .header {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+
+        .tagline {
+            color: var(--gray-600);
+            font-size: 16px;
+            margin-bottom: 24px;
+        }
+
+        /* Trust Indicators */
+        .trust-indicators {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .trust-badge {
+            background: var(--secondary-color);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        /* Progress Indicator */
+        .progress-container {
+            margin-bottom: 32px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .step-counter {
+            color: var(--gray-600);
+            font-weight: 500;
+        }
+
+        .back-button {
+            background: none;
+            border: 1px solid var(--gray-300);
+            color: var(--gray-600);
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .back-button:hover {
+            background: var(--gray-50);
+            border-color: var(--gray-400);
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--gray-200);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        /* Step Content */
+        .step {
+            display: none;
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .step.active {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .step-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 8px;
+        }
+
+        .step-subtitle {
+            color: var(--gray-600);
+            margin-bottom: 32px;
+            font-size: 16px;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--gray-200);
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.2s;
+            background: white;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .form-input.error {
+            border-color: var(--error-color);
+        }
+
+        .form-input.valid {
+            border-color: var(--secondary-color);
+        }
+
+        .form-error {
+            color: var(--error-color);
+            font-size: 14px;
+            margin-top: 4px;
+            display: none;
+        }
+
+        .form-error.show {
+            display: block;
+        }
+
+        .form-success {
+            color: var(--secondary-color);
+            font-size: 14px;
+            margin-top: 4px;
+            display: none;
+        }
+
+        .form-success.show {
+            display: block;
+        }
+
+        /* Selection Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .selection-card {
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 24px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+            position: relative;
+        }
+
+        .selection-card:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.15);
+        }
+
+        .selection-card.selected {
+            border-color: var(--primary-color);
+            background: rgba(79, 70, 229, 0.05);
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: var(--secondary-color);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .card-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 8px;
+        }
+
+        .card-difficulty {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .stars {
+            color: var(--warning-color);
+        }
+
+        .card-time {
+            color: var(--gray-500);
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .card-description {
+            color: var(--gray-600);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Checkbox and Radio Styles */
+        .checkbox-group, .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .checkbox-item, .radio-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            cursor: pointer;
+            padding: 12px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .checkbox-item:hover, .radio-item:hover {
+            background: var(--gray-50);
+        }
+
+        .checkbox-input, .radio-input {
+            margin-top: 2px;
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary-color);
+        }
+
+        .checkbox-label, .radio-label {
+            flex: 1;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Slider Styles */
+        .age-slider-container {
+            margin: 24px 0;
+        }
+
+        .age-display {
+            text-align: center;
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 16px;
+        }
+
+        .age-slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: var(--gray-200);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .age-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .age-slider::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Buttons */
+        .button-group {
+            display: flex;
+            gap: 16px;
+            margin-top: 32px;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            min-height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+            flex: 1;
+        }
+
+        .btn-primary:hover {
+            background: #4338ca;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
+        }
+
+        .btn-primary:disabled {
+            background: var(--gray-300);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--gray-600);
+            border: 2px solid var(--gray-300);
+        }
+
+        .btn-secondary:hover {
+            background: var(--gray-50);
+            border-color: var(--gray-400);
+        }
+
+        .btn-loading {
+            position: relative;
+            color: transparent;
+        }
+
+        .btn-loading::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            border-top: 2px solid currentColor;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Summary Section */
+        .summary-card {
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .summary-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 16px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+
+        .summary-label {
+            font-weight: 500;
+            color: var(--gray-700);
+        }
+
+        .summary-value {
+            color: var(--gray-900);
+        }
+
+        /* Timeline */
+        .timeline {
+            margin: 32px 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .timeline-number {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .timeline-content {
+            flex: 1;
+            color: var(--gray-700);
+        }
+
+        /* Success Page */
+        .success-icon {
+            text-align: center;
+            font-size: 64px;
+            color: var(--secondary-color);
+            margin-bottom: 24px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 16px;
+            }
+
+            .header {
+                padding: 24px 16px;
+            }
+
+            .trust-indicators {
+                position: static;
+                flex-direction: row;
+                justify-content: center;
+                margin-top: 16px;
+                flex-wrap: wrap;
+            }
+
+            .step {
+                padding: 24px 16px;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+
+        /* High Contrast Mode */
+        @media (prefers-contrast: high) {
+            .selection-card {
+                border-width: 3px;
+            }
+            
+            .form-input {
+                border-width: 3px;
+            }
+        }
+
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Focus Indicators */
+        .selection-card:focus-visible,
+        .btn:focus-visible,
+        .form-input:focus-visible {
+            outline: 3px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+
+        /* Collapsible Section */
+        .collapsible-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--gray-200);
+            margin-bottom: 16px;
+        }
+
+        .collapsible-content {
+            display: none;
+            animation: slideDown 0.3s ease;
+        }
+
+        .collapsible-content.show {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                max-height: 0;
+            }
+            to {
+                opacity: 1;
+                max-height: 500px;
+            }
+        }
+
+        /* Textarea */
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        /* Country Selector */
+        .phone-input-group {
+            display: flex;
+            gap: 8px;
+        }
+
+        .country-select {
+            width: 120px;
+        }
+
+        .phone-number {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="trust-indicators">
+                <span class="trust-badge">NHS-compliant security</span>
+                <span class="trust-badge">GDPR protected</span>
+                <span class="trust-badge">Used by 10,000+ families</span>
+            </div>
+            <div class="logo">HomeBridge</div>
+            <div class="tagline" id="header-tagline">AI Health Companion for Your Parents</div>
+        </header>
+
+        <!-- Progress Indicator -->
+        <div class="progress-container">
+            <div class="progress-header">
+                <span class="step-counter" id="step-counter">Step 1 of 6</span>
+                <button type="button" class="back-button" id="back-btn" style="display: none;">← Back</button>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill" style="width: 16.67%;"></div>
+            </div>
+        </div>
+
+        <!-- Step 1: Family Registration -->
+        <section class="step active" id="step-1">
+            <h1 class="step-title">Welcome to HomeBridge</h1>
+            <p class="step-subtitle">Set up AI health monitoring for your parents in under 5 minutes</p>
+
+            <form id="family-form">
+                <div class="form-group">
+                    <label for="email" class="form-label">Email address *</label>
+                    <input type="email" id="email" name="email" class="form-input" required 
+                           placeholder="your.email@example.com" autocomplete="email">
+                    <div class="form-error" id="email-error"></div>
+                    <div class="form-success" id="email-success">✓ Valid email address</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="full-name" class="form-label">Full name *</label>
+                    <input type="text" id="full-name" name="fullName" class="form-input" required 
+                           placeholder="John Smith" autocomplete="name">
+                    <div class="form-error" id="name-error"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone" class="form-label">Phone number *</label>
+                    <div class="phone-input-group">
+                        <select id="country" name="country" class="form-input country-select">
+                            <option value="+44">🇬🇧 +44</option>
+                            <option value="+1">🇺🇸 +1</option>
+                            <option value="+33">🇫🇷 +33</option>
+                            <option value="+49">🇩🇪 +49</option>
+                        </select>
+                        <input type="tel" id="phone" name="phone" class="form-input phone-number" required 
+                               placeholder="7123 456789" autocomplete="tel">
+                    </div>
+                    <div class="form-error" id="phone-error"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="relationship" class="form-label">Relationship to parent *</label>
+                    <select id="relationship" name="relationship" class="form-input" required>
+                        <option value="">Please select...</option>
+                        <option value="son">Son</option>
+                        <option value="daughter">Daughter</option>
+                        <option value="spouse">Spouse</option>
+                        <option value="other">Other family member</option>
+                    </select>
+                    <div class="form-error" id="relationship-error"></div>
+                </div>
+
+                <div class="form-group">
+                    <h3 style="margin-bottom: 16px; color: var(--gray-700);">GDPR Consent</h3>
+                    <div class="checkbox-group">
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="consent-health" name="consentHealth" class="checkbox-input" required>
+                            <span class="checkbox-label">I consent to processing health data for family care monitoring *</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="consent-privacy" name="consentPrivacy" class="checkbox-input" required>
+                            <span class="checkbox-label">I understand my data rights and privacy protections *</span>
+                        </label>
+                    </div>
+                    <p style="font-size: 12px; color: var(--gray-500); margin-top: 8px;">
+                        <a href="#" target="_blank" style="color: var(--primary-color);">Privacy Policy</a> • 
+                        <a href="#" target="_blank" style="color: var(--primary-color);">Terms of Service</a><br>
+                        You can withdraw consent anytime from your dashboard
+                    </p>
+                    <div class="form-error" id="consent-error"></div>
+                </div>
+            </form>
+
+            <div class="button-group">
+                <button type="button" class="btn btn-primary" id="step1-continue">
+                    Create Family Account
+                </button>
+            </div>
+
+            <p style="text-align: center; margin-top: 16px; color: var(--gray-500);">
+                Already have an account? <a href="#" style="color: var(--primary-color);">Sign in</a>
+            </p>
+        </section>
+
+        <!-- Step 2: Parent Profile Setup -->
+        <section class="step" id="step-2">
+            <h1 class="step-title" id="step2-title">Tell us about your parent</h1>
+            <p class="step-subtitle">This helps us personalize their experience</p>
+
+            <form id="parent-form">
+                <div class="form-group">
+                    <label for="parent-name" class="form-label">Parent's full name *</label>
+                    <input type="text" id="parent-name" name="parentName" class="form-input" required 
+                           placeholder="Mary Smith" style="font-size: 18px; padding: 16px;">
+                    <div class="form-error" id="parent-name-error"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="parent-age" class="form-label">Age *</label>
+                    <div class="age-slider-container">
+                        <div class="age-display" id="age-display">75</div>
+                        <input type="range" id="parent-age" name="parentAge" class="age-slider" 
+                               min="60" max="100" value="75" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="parent-phone" class="form-label">Parent's phone number *</label>
+                    <div class="phone-input-group">
+                        <select id="parent-country" name="parentCountry" class="form-input country-select">
+                            <option value="+44">🇬🇧 +44</option>
+                            <option value="+1">🇺🇸 +1</option>
+                            <option value="+33">🇫🇷 +33</option>
+                            <option value="+49">🇩🇪 +49</option>
+                        </select>
+                        <input type="tel" id="parent-phone" name="parentPhone" class="form-input phone-number" required 
+                               placeholder="7123 456789">
+                    </div>
+                    <div class="form-error" id="parent-phone-error"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="parent-language" class="form-label">Preferred language *</label>
+                    <select id="parent-language" name="parentLanguage" class="form-input" required>
+                        <option value="english">English</option>
+                        <option value="welsh">Welsh</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <!-- Collapsible Optional Details -->
+                <div class="form-group">
+                    <div class="collapsible-header" id="optional-details-toggle">
+                        <span style="font-weight: 600; color: var(--gray-700);">More details (optional)</span>
+                        <span id="optional-details-icon">+</span>
+                    </div>
+                    <div class="collapsible-content" id="optional-details">
+                        <div class="form-group">
+                            <label for="medical-conditions" class="form-label">Medical conditions</label>
+                            <input type="text" id="medical-conditions" name="medicalConditions" class="form-input" 
+                                   placeholder="e.g., Diabetes, High blood pressure, Arthritis">
+                        </div>
+                        <div class="form-group">
+                            <label for="medications" class="form-label">Current medications</label>
+                            <textarea id="medications" name="medications" class="form-input form-textarea" 
+                                      placeholder="e.g., Blood pressure medication, vitamins..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="emergency-contact" class="form-label">Emergency contact name</label>
+                            <input type="text" id="emergency-contact" name="emergencyContact" class="form-input" 
+                                   placeholder="Dr. Sarah Johnson">
+                        </div>
+                        <div class="form-group">
+                            <label for="emergency-phone" class="form-label">Emergency contact phone</label>
+                            <input type="tel" id="emergency-phone" name="emergencyPhone" class="form-input" 
+                                   placeholder="0207 123 4567">
+                        </div>
+                        <div class="form-group">
+                            <label for="checkin-time" class="form-label">Best time for daily check-ins</label>
+                            <input type="time" id="checkin-time" name="checkinTime" class="form-input" value="09:00">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tech Skills Assessment -->
+                <div class="form-group">
+                    <h3 style="margin-bottom: 16px; color: var(--gray-700);" id="tech-skills-title">
+                        How comfortable is your parent with technology? *
+                    </h3>
+                    <div class="card-grid">
+                        <div class="selection-card" data-value="smartphone-daily" tabindex="0" role="button" aria-pressed="false">
+                            <div class="card-badge" style="background: var(--secondary-color);">Easy</div>
+                            <div class="card-icon">📱</div>
+                            <div class="card-title">Uses smartphone daily</div>
+                            <div class="card-description">Comfortable with apps, messages, and calls</div>
+                            <div style="margin-top: 12px; padding: 8px; background: #e7f5e7; border-radius: 6px; font-size: 12px; color: #2d5a2d;">
+                                ✓ Perfect for WhatsApp or website platforms
+                            </div>
+                        </div>
+                        <div class="selection-card" data-value="smartphone-occasional" tabindex="0" role="button" aria-pressed="false">
+                            <div class="card-badge" style="background: var(--warning-color);">Moderate</div>
+                            <div class="card-icon">📞</div>
+                            <div class="card-title">Occasionally uses smartphone</div>
+                            <div class="card-description">Can make calls and send simple messages</div>
+                            <div style="margin-top: 12px; padding: 8px; background: #fff7e6; border-radius: 6px; font-size: 12px; color: #b45309;">
+                                ✓ Email links work best for this level
+                            </div>
+                        </div>
+                        <div class="selection-card" data-value="phone-calls" tabindex="0" role="button" aria-pressed="false">
+                            <div class="card-badge" style="background: #f97316;">Familiar</div>
+                            <div class="card-icon">☎️</div>
+                            <div class="card-title">Prefers phone calls</div>
+                            <div class="card-description">Most comfortable with traditional phone conversations</div>
+                            <div style="margin-top: 12px; padding: 8px; background: #fef2f2; border-radius: 6px; font-size: 12px; color: #991b1b;">
+                                ✓ AI phone calls are perfect for this
+                            </div>
+                        </div>
+                        <div class="selection-card" data-value="needs-help" tabindex="0" role="button" aria-pressed="false">
+                            <div class="card-badge" style="background: var(--error-color);">Simple</div>
+                            <div class="card-icon">🤝</div>
+                            <div class="card-title">Needs help with technology</div>
+                            <div class="card-description">Requires assistance with most tech tasks</div>
+                            <div style="margin-top: 12px; padding: 8px; background: #fef2f2; border-radius: 6px; font-size: 12px; color: #991b1b;">
+                                ✓ Phone calls require no tech learning
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="tech-comfort" name="techComfort" required>
+                    <div class="form-error" id="tech-comfort-error"></div>
+                </div>
+            </form>
+
+            <div class="button-group">
+                <button type="button" class="btn btn-secondary" id="step2-back">Back</button>
+                <button type="button" class="btn btn-primary" id="step2-continue">Continue to Platform Selection</button>
+            </div>
+        </section>
+
+        <!-- Step 3: Technology Selection -->
+        <section class="step" id="step-3">
+            <h1 class="step-title" id="step3-title">How should HomeBridge connect with your parent?</h1>
+            <p class="step-subtitle" id="step3-subtitle">Based on their tech comfort level, we recommend:</p>
+
+            <div class="card-grid">
+                <div class="selection-card" data-platform="whatsapp" tabindex="0" role="button" aria-pressed="false">
+                    <div class="card-badge" id="whatsapp-badge" style="display: none;">Recommended</div>
+                    <div class="card-icon">💬</div>
+                    <div class="card-title">WhatsApp Messages</div>
+                    <div class="card-difficulty">
+                        <span class="stars">★★☆☆☆</span>
+                        <span>Easy</span>
+                    </div>
+                    <div class="card-time">Setup time: 5 minutes</div>
+                    <div class="card-description">Daily health conversations through familiar WhatsApp chat. Best for parents who already use WhatsApp.</div>
+                    <div class="platform-preview" style="margin-top: 12px; padding: 8px; background: #f0f9ff; border-radius: 6px; font-size: 12px;">
+                        <strong>Preview:</strong> "Hi! Ready for your health check-in? 😊"
+                    </div>
+                </div>
+
+                <div class="selection-card" data-platform="website" tabindex="0" role="button" aria-pressed="false">
+                    <div class="card-icon">🌐</div>
+                    <div class="card-title">Simple Website</div>
+                    <div class="card-difficulty">
+                        <span class="stars">★★☆☆☆</span>
+                        <span>Easy</span>
+                    </div>
+                    <div class="card-time">Setup time: 3 minutes</div>
+                    <div class="card-description">Click a link to start talking with AI health companion. Best for parents who browse the internet occasionally.</div>
+                    <div class="platform-preview" style="margin-top: 12px; padding: 8px; background: #f0f9ff; border-radius: 6px; font-size: 12px;">
+                        <strong>Preview:</strong> Large "Start Check-in" button on simple page
+                    </div>
+                </div>
+
+                <div class="selection-card" data-platform="email" tabindex="0" role="button" aria-pressed="false">
+                    <div class="card-badge" id="email-badge" style="background: var(--secondary-color);">Easiest</div>
+                    <div class="card-icon">📧</div>
+                    <div class="card-title">Magic Email Links</div>
+                    <div class="card-difficulty">
+                        <span class="stars">★☆☆☆☆</span>
+                        <span>Very Easy</span>
+                    </div>
+                    <div class="card-time">Setup time: 2 minutes</div>
+                    <div class="card-description">Daily email with button to start health conversation. Best for parents who check email regularly.</div>
+                    <div class="platform-preview" style="margin-top: 12px; padding: 8px; background: #f0f9ff; border-radius: 6px; font-size: 12px;">
+                        <strong>Preview:</strong> "Good morning! Click to start today's check-in"
+                    </div>
+                </div>
+
+                <div class="selection-card" data-platform="phone" tabindex="0" role="button" aria-pressed="false">
+                    <div class="card-badge" id="phone-badge" style="background: var(--warning-color);">Most familiar</div>
+                    <div class="card-icon">📞</div>
+                    <div class="card-title">AI Phone Calls</div>
+                    <div class="card-difficulty">
+                        <span class="stars">★☆☆☆☆</span>
+                        <span>Very Easy</span>
+                    </div>
+                    <div class="card-time">Setup time: 1 minute</div>
+                    <div class="card-description">HomeBridge calls your parent directly for health check-ins. Best for parents who prefer traditional phone conversations.</div>
+                    <div style="margin-top: 8px; color: var(--warning-color); font-size: 12px; font-weight: 500;">
+                        Higher monthly cost due to phone charges
+                    </div>
+                    <div class="platform-preview" style="margin-top: 8px; padding: 8px; background: #f0f9ff; border-radius: 6px; font-size: 12px;">
+                        <strong>Preview:</strong> "Hello, this is HomeBridge calling for your daily check-in"
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="checkbox-item">
+                    <input type="checkbox" id="auto-recommend" name="autoRecommend" class="checkbox-input" checked>
+                    <span class="checkbox-label">
+                        <strong>Let HomeBridge choose automatically</strong><br>
+                        <span id="recommendation-text" style="color: var(--gray-600); font-size: 14px;">
+                            Based on their tech skills, we'll select the best option
+                        </span>
+                    </span>
+                </label>
+            </div>
+
+            <input type="hidden" id="selected-platform" name="selectedPlatform">
+            <div class="form-error" id="platform-error"></div>
+
+            <div class="button-group">
+                <button type="button" class="btn btn-secondary" id="step3-back">Back to Parent Profile</button>
+                <button type="button" class="btn btn-primary" id="step3-continue">Continue to Security Setup</button>
+            </div>
+        </section>
+
+        <!-- Step 4: Authentication Method -->
+        <section class="step" id="step-4">
+            <h1 class="step-title" id="step4-title">How will your parent sign in securely?</h1>
+            <p class="step-subtitle">We'll set this up together to keep their health data safe</p>
+
+            <div class="card-grid">
+                <div class="selection-card" data-auth="pin" tabindex="0" role="button" aria-pressed="false">
+                    <div class="card-icon">🔢</div>
+                    <div class="card-title">4-Digit PIN Code</div>
+                    <div class="card-difficulty">
+                        <span style="color: var(--primary-color);">🛡️🛡️🛡️☆☆</span>
+                        <span>Medium Security</span>
+                    </div>
+                    <div class="card-description">
+                        You create a simple 4-digit code that your parent enters.<br><br>
+                        <strong>Setup:</strong> You choose PIN → We teach them → Daily sign-in takes 10 seconds<br>
+                        <strong>Family control:</strong> You can reset the PIN anytime
+                    </div>
+                </div>
+
+                <div class="selection-card" data-auth="voice" tabindex="0" role="button" aria-pressed="false">
+                    <div class="card-icon">🎤</div>
+                    <div class="card-title">Voice Recognition</div>
+                    <div class="card-difficulty">
+                        <span style="color: var(--primary-color);">🛡️🛡️🛡️🛡️☆</span>
+                        <span>High Security</span>
+                    </div>
+                    <div class="card-description">
+                        AI learns your parent's voice for automatic sign-in.<br><br>
+                        <strong>Setup:</strong> Record voice samples → AI learns patterns → Just say "Hello HomeBridge"<br>
+                        <strong>Backup:</strong> PIN code if voice not recognized
+                    </div>
+                </div>
+
+                <div class="selection-card" data-auth="magic-links" tabindex="0" role="button" aria-pressed="false">
+                    <div class="card-icon">🔗</div>
+                    <div class="card-title">Magic Email Links</div>
+                    <div class="card-difficulty">
+                        <span style="color: var(--primary-color);">🛡️🛡️🛡️🛡️🛡️</span>
+                        <span>Highest Security</span>
+                    </div>
+                    <div class="card-description">
+                        Secure links that work for 4 hours, no passwords needed.<br><br>
+                        <strong>Setup:</strong> We email secure link → Parent clicks → Automatic sign-in<br>
+                        <strong>Family control:</strong> You get notified when links are used
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <h3 style="margin-bottom: 16px; color: var(--gray-700);">What if the main method doesn't work?</h3>
+                <div class="checkbox-group">
+                    <label class="checkbox-item">
+                        <input type="checkbox" id="backup-pin" name="backupPin" class="checkbox-input">
+                        <span class="checkbox-label">PIN code backup</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" id="backup-family" name="backupFamily" class="checkbox-input">
+                        <span class="checkbox-label">Family emergency access (you can help remotely)</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" id="backup-support" name="backupSupport" class="checkbox-input">
+                        <span class="checkbox-label">Phone support assistance</span>
+                    </label>
+                </div>
+            </div>
+
+            <input type="hidden" id="selected-auth" name="selectedAuth">
+            <div class="form-error" id="auth-error"></div>
+
+            <div class="button-group">
+                <button type="button" class="btn btn-secondary" id="step4-back">Back to Platform Selection</button>
+                <button type="button" class="btn btn-primary" id="step4-continue">Continue to Send Invitation</button>
+            </div>
+        </section>
+
+        <!-- Step 5: Send Invitation -->
+        <section class="step" id="step-5">
+            <h1 class="step-title" id="step5-title">Ready to invite your parent!</h1>
+            <p class="step-subtitle">Preview what they'll experience, then send the invitation</p>
+
+            <!-- Setup Summary -->
+            <div class="summary-card">
+                <div class="summary-title">Setup Summary</div>
+                <div class="summary-item">
+                    <span class="summary-label">Platform:</span>
+                    <span class="summary-value" id="summary-platform">WhatsApp Messages</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Authentication:</span>
+                    <span class="summary-value" id="summary-auth">4-Digit PIN</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Daily check-in time:</span>
+                    <span class="summary-value" id="summary-time">9:00 AM</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Emergency contact:</span>
+                    <span class="summary-value" id="summary-emergency">You</span>
+                </div>
+                <div style="margin-top: 16px;">
+                    <a href="#" style="color: var(--primary-color); font-size: 14px;">Change any of these</a>
+                </div>
+            </div>
+
+            <!-- Preview -->
+            <div class="form-group">
+                <h3 style="margin-bottom: 16px; color: var(--gray-700);" id="preview-title">Here's what your parent will see:</h3>
+                <div style="background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 8px; padding: 16px;">
+                    <div id="preview-content">
+                        <p style="color: var(--gray-600); font-style: italic;">Preview will appear here based on your selections</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Invitation Message -->
+            <div class="form-group">
+                <label for="invitation-message" class="form-label">Personalized invitation message</label>
+                <textarea id="invitation-message" name="invitationMessage" class="form-input form-textarea" style="min-height: 200px;">Hi [PARENT_NAME],
+
+I've set up HomeBridge to help keep track of your health and make sure you're doing well. It's like having a caring nurse check in with you daily.
+
+HomeBridge will [PLATFORM_DESCRIPTION]. It only takes a few minutes each day, and it helps me worry less about you while keeping you independent.
+
+I'll help you get started when you're ready.
+
+Love,
+[FAMILY_MEMBER_NAME]</textarea>
+            </div>
+
+            <!-- Delivery Method -->
+            <div class="form-group">
+                <h3 style="margin-bottom: 16px; color: var(--gray-700);">How would you like to send the invitation?</h3>
+                <div class="checkbox-group">
+                    <label class="checkbox-item">
+                        <input type="checkbox" id="delivery-whatsapp" name="deliveryWhatsapp" class="checkbox-input">
+                        <span class="checkbox-label">WhatsApp message</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" id="delivery-sms" name="deliverySms" class="checkbox-input">
+                        <span class="checkbox-label">SMS text message</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" id="delivery-email" name="deliveryEmail" class="checkbox-input" checked>
+                        <span class="checkbox-label">Email</span>
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" id="delivery-print" name="deliveryPrint" class="checkbox-input">
+                        <span class="checkbox-label">Printed instructions (generates PDF)</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Delivery Timing -->
+            <div class="form-group">
+                <h3 style="margin-bottom: 16px; color: var(--gray-700);">When should we send this?</h3>
+                <div class="radio-group">
+                    <label class="radio-item">
+                        <input type="radio" id="send-now" name="sendTiming" value="now" class="radio-input" checked>
+                        <span class="radio-label">Send now</span>
+                    </label>
+                    <label class="radio-item">
+                        <input type="radio" id="send-later" name="sendTiming" value="later" class="radio-input">
+                        <span class="radio-label">Send later</span>
+                    </label>
+                    <label class="radio-item">
+                        <input type="radio" id="send-person" name="sendTiming" value="person" class="radio-input">
+                        <span class="radio-label">I'll deliver this myself in person</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="checkbox-item">
+                    <input type="checkbox" id="send-test" name="sendTest" class="checkbox-input">
+                    <span class="checkbox-label">Send a test to myself first</span>
+                </label>
+            </div>
+
+            <div class="button-group">
+                <button type="button" class="btn btn-secondary" id="step5-back">Back to Authentication</button>
+                <button type="button" class="btn btn-primary" id="step5-continue">Send Invitation</button>
+            </div>
+        </section>
+
+        <!-- Step 6: Setup Complete -->
+        <section class="step" id="step-6">
+            <div class="success-icon">✅</div>
+            <h1 class="step-title">Setup Complete! 🎉</h1>
+            <p class="step-subtitle" id="step6-subtitle">HomeBridge is ready to care for your parent</p>
+
+            <!-- Timeline -->
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-number">1</div>
+                    <div class="timeline-content" id="timeline-1">Your parent receives invitation within 5 minutes</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-number">2</div>
+                    <div class="timeline-content">You help them with first sign-in (we'll guide you)</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-number">3</div>
+                    <div class="timeline-content">Daily health conversations begin</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-number">4</div>
+                    <div class="timeline-content">You receive weekly health insights</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-number">5</div>
+                    <div class="timeline-content">Emergency alerts if needed</div>
+                </div>
+            </div>
+
+            <!-- Immediate Actions -->
+            <div class="summary-card">
+                <div class="summary-title" id="help-title">Help your parent get started</div>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <button type="button" class="btn" style="background: var(--gray-100); color: var(--gray-700);">
+                        📄 Download setup guide
+                    </button>
+                    <button type="button" class="btn" style="background: var(--gray-100); color: var(--gray-700);">
+                        📹 Schedule video call for setup help
+                    </button>
+                    <button type="button" class="btn" style="background: var(--gray-100); color: var(--gray-700);">
+                        📞 Call our family support line: 0800-HOMEBRIDGE
+                    </button>
+                </div>
+            </div>
+
+            <!-- Dashboard Preview -->
+            <div class="summary-card">
+                <div class="summary-title">Your Family Dashboard is ready</div>
+                <div style="background: var(--gray-100); height: 120px; border-radius: 8px; margin-bottom: 16px; display: flex; align-items: center; justify-content: center; color: var(--gray-500);">
+                    Dashboard preview screenshot would go here
+                </div>
+                <p style="color: var(--gray-600); margin-bottom: 16px;">
+                    Manage settings, view reports, get support
+                </p>
+                <button type="button" class="btn btn-primary" style="width: 100%;">
+                    Access Dashboard
+                </button>
+            </div>
+
+            <!-- Support Information -->
+            <div class="summary-card">
+                <div class="summary-title">Questions? We're here to help</div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; font-size: 14px;">
+                    <div>
+                        <strong>Email:</strong><br>
+                        <a href="mailto:support@homebridge.health" style="color: var(--primary-color);">support@homebridge.health</a>
+                    </div>
+                    <div>
+                        <strong>Phone:</strong><br>
+                        <a href="tel:0800-HOMEBRIDGE" style="color: var(--primary-color);">0800-HOMEBRIDGE</a><br>
+                        <small style="color: var(--gray-500);">(free from UK)</small>
+                    </div>
+                    <div>
+                        <strong>Response time:</strong><br>
+                        <span style="color: var(--secondary-color);">Average: 2 hours</span>
+                    </div>
+                    <div>
+                        <strong>Success rate:</strong><br>
+                        <span style="color: var(--secondary-color);">94% family setup success</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button type="button" class="btn btn-primary">Go to Family Dashboard</button>
+                <button type="button" class="btn btn-secondary">Send another invitation</button>
+            </div>
+
+            <div style="text-align: center; margin-top: 16px;">
+                <button type="button" class="btn" style="background: var(--gray-100); color: var(--gray-700);">
+                    📱 Download mobile app
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Application State
+        const appState = {
+            currentStep: 1,
+            totalSteps: 6,
+            formData: {},
+            recommendations: {
+                platform: null,
+                auth: null
+            }
+        };
+
+        // Initialize Application
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeEventListeners();
+            loadSavedData();
+            updateRecommendations();
+        });
+
+        // Event Listeners Setup
+        function initializeEventListeners() {
+            // Step 1 listeners
+            document.getElementById('step1-continue').addEventListener('click', validateAndContinueStep1);
+            document.getElementById('email').addEventListener('input', validateEmailReal);
+            
+            // Step 2 listeners
+            document.getElementById('step2-back').addEventListener('click', () => goToStep(1));
+            document.getElementById('step2-continue').addEventListener('click', validateAndContinueStep2);
+            document.getElementById('parent-age').addEventListener('input', updateAgeDisplay);
+            document.getElementById('optional-details-toggle').addEventListener('click', toggleOptionalDetails);
+            
+            // Tech comfort cards
+            document.querySelectorAll('#step-2 .selection-card').forEach(card => {
+                card.addEventListener('click', () => selectTechComfort(card));
+                card.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        selectTechComfort(card);
+                    }
+                });
+            });
+            
+            // Step 3 listeners
+            document.getElementById('step3-back').addEventListener('click', () => goToStep(2));
+            document.getElementById('step3-continue').addEventListener('click', validateAndContinueStep3);
+            
+            // Platform selection cards
+            document.querySelectorAll('#step-3 .selection-card').forEach(card => {
+                card.addEventListener('click', () => selectPlatform(card));
+                card.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        selectPlatform(card);
+                    }
+                });
+            });
+            
+            // Step 4 listeners
+            document.getElementById('step4-back').addEventListener('click', () => goToStep(3));
+            document.getElementById('step4-continue').addEventListener('click', validateAndContinueStep4);
+            
+            // Auth method cards
+            document.querySelectorAll('#step-4 .selection-card').forEach(card => {
+                card.addEventListener('click', () => selectAuthMethod(card));
+                card.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        selectAuthMethod(card);
+                    }
+                });
+            });
+            
+            // Step 5 listeners
+            document.getElementById('step5-back').addEventListener('click', () => goToStep(4));
+            document.getElementById('step5-continue').addEventListener('click', validateAndContinueStep5);
+            
+            // Back button
+            document.getElementById('back-btn').addEventListener('click', goToPreviousStep);
+            
+            // Auto-save functionality with better error handling
+            setInterval(() => {
+                try {
+                    saveFormData();
+                } catch (error) {
+                    console.warn('Auto-save failed:', error);
+                }
+            }, 30000);
+
+            // Enhanced keyboard navigation
+            document.addEventListener('keydown', handleGlobalKeydown);
+            
+            // Form change detection for real-time saving
+            document.addEventListener('input', debounce(saveFormData, 2000));
+            document.addEventListener('change', saveFormData);
+        }
+
+        // Navigation Functions
+        function goToStep(stepNumber) {
+            // Hide current step
+            document.querySelector('.step.active').classList.remove('active');
+            
+            // Show target step
+            document.getElementById(`step-${stepNumber}`).classList.add('active');
+            
+            // Update state
+            appState.currentStep = stepNumber;
+            
+            // Update UI
+            updateProgressBar();
+            updateStepCounter();
+            updateBackButton();
+            updateHeaderContent();
+            
+            // Save progress
+            saveFormData();
+        }
+
+        function goToPreviousStep() {
+            if (appState.currentStep > 1) {
+                goToStep(appState.currentStep - 1);
+            }
+        }
+
+        function updateProgressBar() {
+            const progressFill = document.getElementById('progress-fill');
+            const percentage = (appState.currentStep / appState.totalSteps) * 100;
+            progressFill.style.width = `${percentage}%`;
+        }
+
+        function updateStepCounter() {
+            document.getElementById('step-counter').textContent = `Step ${appState.currentStep} of ${appState.totalSteps}`;
+        }
+
+        function updateBackButton() {
+            const backBtn = document.getElementById('back-btn');
+            backBtn.style.display = appState.currentStep > 1 ? 'block' : 'none';
+        }
+
+        function updateHeaderContent() {
+            const tagline = document.getElementById('header-tagline');
+            const titles = {
+                1: "AI Health Companion for Your Parents",
+                2: "AI Health Companion for Your Parents",
+                3: "Choose the best platform for your parent",
+                4: "Secure access keeps health data safe",
+                5: "Almost ready to begin caring",
+                6: "Welcome to your family's health journey"
+            };
+            tagline.textContent = titles[appState.currentStep] || "AI Health Companion for Your Parents";
+        }
+
+        // Step 1 Validation
+        function validateAndContinueStep1() {
+            const form = document.getElementById('family-form');
+            const formData = new FormData(form);
+            let isValid = true;
+
+            // Validate email
+            const email = formData.get('email');
+            if (!email || !isValidEmail(email)) {
+                showFieldError('email', 'Please enter a valid email address');
+                isValid = false;
+            } else {
+                hideFieldError('email');
+                showFieldSuccess('email');
+            }
+
+            // Validate name
+            const fullName = formData.get('fullName');
+            if (!fullName || fullName.trim().length < 2) {
+                showFieldError('name', 'Please enter your full name');
+                isValid = false;
+            } else {
+                hideFieldError('name');
+            }
+
+            // Validate phone
+            const phone = formData.get('phone');
+            if (!phone || phone.trim().length < 6) {
+                showFieldError('phone', 'Please enter a valid phone number');
+                isValid = false;
+            } else {
+                hideFieldError('phone');
+            }
+
+            // Validate relationship
+            const relationship = formData.get('relationship');
+            if (!relationship) {
+                showFieldError('relationship', 'Please select your relationship');
+                isValid = false;
+            } else {
+                hideFieldError('relationship');
+            }
+
+            // Validate consent
+            const consentHealth = formData.get('consentHealth');
+            const consentPrivacy = formData.get('consentPrivacy');
+            if (!consentHealth || !consentPrivacy) {
+                showFieldError('consent', 'Please accept both consent requirements');
+                isValid = false;
+            } else {
+                hideFieldError('consent');
+            }
+
+            if (isValid) {
+                // Save form data
+                Object.assign(appState.formData, Object.fromEntries(formData));
+                
+                // Show loading state
+                setButtonLoading('step1-continue', 'Creating your account...');
+                
+                // Simulate API call
+                setTimeout(() => {
+                    resetButtonLoading('step1-continue', 'Create Family Account');
+                    goToStep(2);
+                }, 1500);
+            }
+        }
+
+        // Step 2 Validation
+        function validateAndContinueStep2() {
+            const form = document.getElementById('parent-form');
+            const formData = new FormData(form);
+            let isValid = true;
+
+            // Validate parent name
+            const parentName = formData.get('parentName');
+            if (!parentName || parentName.trim().length < 2) {
+                showFieldError('parent-name', 'Please enter your parent\'s full name');
+                isValid = false;
+            } else {
+                hideFieldError('parent-name');
+            }
+
+            // Validate parent phone
+            const parentPhone = formData.get('parentPhone');
+            if (!parentPhone || parentPhone.trim().length < 6) {
+                showFieldError('parent-phone', 'Please enter a valid phone number');
+                isValid = false;
+            } else {
+                hideFieldError('parent-phone');
+            }
+
+            // Validate tech comfort selection
+            const techComfort = document.getElementById('tech-comfort').value;
+            if (!techComfort) {
+                showFieldError('tech-comfort', 'Please select your parent\'s tech comfort level');
+                isValid = false;
+            } else {
+                hideFieldError('tech-comfort');
+            }
+
+            if (isValid) {
+                // Save form data
+                Object.assign(appState.formData, Object.fromEntries(formData));
+                
+                // Update dynamic content for next step
+                updateStep3Content();
+                
+                goToStep(3);
+            }
+        }
+
+        // Step 3 Validation
+        function validateAndContinueStep3() {
+            const selectedPlatform = document.getElementById('selected-platform').value;
+            const autoRecommend = document.getElementById('auto-recommend').checked;
+            
+            if (!selectedPlatform && !autoRecommend) {
+                showFieldError('platform', 'Please select a platform or enable auto-recommendation');
+                return;
+            }
+
+            hideFieldError('platform');
+            
+            // If auto-recommend is enabled, use recommendation
+            if (autoRecommend) {
+                appState.formData.selectedPlatform = appState.recommendations.platform;
+            } else {
+                appState.formData.selectedPlatform = selectedPlatform;
+            }
+
+            updateStep4Content();
+            goToStep(4);
+        }
+
+        // Step 4 Validation
+        function validateAndContinueStep4() {
+            const selectedAuth = document.getElementById('selected-auth').value;
+            
+            if (!selectedAuth) {
+                showFieldError('auth', 'Please select an authentication method');
+                return;
+            }
+
+            hideFieldError('auth');
+            appState.formData.selectedAuth = selectedAuth;
+            
+            updateStep5Content();
+            goToStep(5);
+        }
+
+        // Step 5 Validation
+        function validateAndContinueStep5() {
+            // Check if at least one delivery method is selected
+            const deliveryMethods = [
+                document.getElementById('delivery-whatsapp').checked,
+                document.getElementById('delivery-sms').checked,
+                document.getElementById('delivery-email').checked,
+                document.getElementById('delivery-print').checked
+            ];
+            
+            if (!deliveryMethods.some(method => method)) {
+                alert('Please select at least one delivery method');
+                return;
+            }
+
+            // Show loading state
+            setButtonLoading('step5-continue', 'Sending invitation...');
+            
+            // Simulate sending invitation
+            setTimeout(() => {
+                resetButtonLoading('step5-continue', 'Send Invitation');
+                updateStep6Content();
+                goToStep(6);
+            }, 2000);
+        }
+
+        // Selection Functions
+        function selectTechComfort(selectedCard) {
+            // Remove selection from all cards
+            document.querySelectorAll('#step-2 .selection-card').forEach(card => {
+                card.classList.remove('selected');
+                card.setAttribute('aria-pressed', 'false');
+            });
+            
+            // Select clicked card
+            selectedCard.classList.add('selected');
+            selectedCard.setAttribute('aria-pressed', 'true');
+            
+            // Update hidden input
+            const value = selectedCard.getAttribute('data-value');
+            document.getElementById('tech-comfort').value = value;
+            
+            // Update recommendations
+            updateRecommendations();
+            
+            hideFieldError('tech-comfort');
+        }
+
+        function selectPlatform(selectedCard) {
+            // Remove selection from all cards
+            document.querySelectorAll('#step-3 .selection-card').forEach(card => {
+                card.classList.remove('selected');
+                card.setAttribute('aria-pressed', 'false');
+            });
+            
+            // Select clicked card
+            selectedCard.classList.add('selected');
+            selectedCard.setAttribute('aria-pressed', 'true');
+            
+            // Update hidden input
+            const value = selectedCard.getAttribute('data-platform');
+            document.getElementById('selected-platform').value = value;
+            
+            // Disable auto-recommend when manual selection is made
+            document.getElementById('auto-recommend').checked = false;
+            
+            hideFieldError('platform');
+        }
+
+        function selectAuthMethod(selectedCard) {
+            // Remove selection from all cards
+            document.querySelectorAll('#step-4 .selection-card').forEach(card => {
+                card.classList.remove('selected');
+                card.setAttribute('aria-pressed', 'false');
+            });
+            
+            // Select clicked card
+            selectedCard.classList.add('selected');
+            selectedCard.setAttribute('aria-pressed', 'true');
+            
+            // Update hidden input
+            const value = selectedCard.getAttribute('data-auth');
+            document.getElementById('selected-auth').value = value;
+            
+            hideFieldError('auth');
+        }
+
+        // Content Update Functions
+        function updateStep3Content() {
+            const parentName = appState.formData.parentName || 'your parent';
+            const techComfort = appState.formData.techComfort;
+            
+            document.getElementById('step3-title').textContent = `How should HomeBridge connect with ${parentName}?`;
+            
+            // Update recommendation badges based on tech comfort
+            const badges = {
+                'whatsapp-badge': document.getElementById('whatsapp-badge'),
+                'email-badge': document.getElementById('email-badge'),
+                'phone-badge': document.getElementById('phone-badge')
+            };
+            
+            // Hide all badges first
+            Object.values(badges).forEach(badge => badge.style.display = 'none');
+            
+            // Show appropriate badge
+            switch (techComfort) {
+                case 'smartphone-daily':
+                    badges['whatsapp-badge'].style.display = 'block';
+                    break;
+                case 'smartphone-occasional':
+                    badges['email-badge'].style.display = 'block';
+                    break;
+                case 'phone-calls':
+                case 'needs-help':
+                    badges['phone-badge'].style.display = 'block';
+                    break;
+            }
+            
+            // Update recommendation text
+            const recommendationText = document.getElementById('recommendation-text');
+            const recommendations = {
+                'smartphone-daily': 'WhatsApp is perfect for daily smartphone users',
+                'smartphone-occasional': 'Email links work great for occasional users',
+                'phone-calls': 'Phone calls are most familiar and comfortable',
+                'needs-help': 'Phone calls require no technology learning'
+            };
+            recommendationText.textContent = recommendations[techComfort] || 'We\'ll choose the best option';
+        }
+
+        function updateStep4Content() {
+            const parentName = appState.formData.parentName || 'your parent';
+            document.getElementById('step4-title').textContent = `How will ${parentName} sign in securely?`;
+        }
+
+        function updateStep5Content() {
+            const parentName = appState.formData.parentName || 'your parent';
+            const familyName = appState.formData.fullName || 'Family member';
+            
+            document.getElementById('step5-title').textContent = `Ready to invite ${parentName}!`;
+            
+            // Update summary
+            const platformNames = {
+                'whatsapp': 'WhatsApp Messages',
+                'website': 'Simple Website',
+                'email': 'Magic Email Links',
+                'phone': 'AI Phone Calls'
+            };
+            
+            const authNames = {
+                'pin': '4-Digit PIN',
+                'voice': 'Voice Recognition',
+                'magic-links': 'Magic Email Links'
+            };
+            
+            document.getElementById('summary-platform').textContent = platformNames[appState.formData.selectedPlatform] || 'Not selected';
+            document.getElementById('summary-auth').textContent = authNames[appState.formData.selectedAuth] || 'Not selected';
+            document.getElementById('summary-time').textContent = appState.formData.checkinTime || '9:00 AM';
+            document.getElementById('summary-emergency').textContent = familyName;
+            
+            // Update preview
+            updatePreview();
+            
+            // Update invitation message
+            updateInvitationMessage();
+        }
+
+        function updateStep6Content() {
+            const parentName = appState.formData.parentName || 'your parent';
+            document.getElementById('step6-subtitle').textContent = `HomeBridge is ready to care for ${parentName}`;
+            document.getElementById('timeline-1').textContent = `${parentName} receives invitation within 5 minutes`;
+            document.getElementById('help-title').textContent = `Help ${parentName} get started`;
+        }
+
+        function updatePreview() {
+            const platform = appState.formData.selectedPlatform;
+            const parentName = appState.formData.parentName || 'your parent';
+            const previewContent = document.getElementById('preview-content');
+            
+            const previews = {
+                'whatsapp': `
+                    <div style="max-width: 300px; margin: 0 auto; border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden; background: white;">
+                        <div style="background: #075e54; color: white; padding: 12px; text-align: center; font-weight: 600;">
+                            💬 WhatsApp
+                        </div>
+                        <div style="padding: 16px; background: #e7ffdb;">
+                            <div style="background: #dcf8c6; padding: 8px 12px; border-radius: 8px; margin-bottom: 8px; max-width: 80%; margin-left: auto;">
+                                <strong>HomeBridge</strong><br>
+                                <span style="font-size: 14px;">Hello ${parentName}! Ready for your daily health check-in? How are you feeling today? 😊</span>
+                                <div style="font-size: 11px; color: #666; margin-top: 4px;">9:00 AM ✓</div>
+                            </div>
+                            <div style="background: white; padding: 8px 12px; border-radius: 8px; max-width: 70%;">
+                                <span style="font-size: 14px; color: #888;">Type your response here...</span>
+                            </div>
+                        </div>
+                    </div>
+                `,
+                'website': `
+                    <div style="border: 2px solid var(--gray-300); border-radius: 12px; padding: 24px; text-align: center; background: white;">
+                        <div style="display: inline-block; width: 48px; height: 48px; background: var(--primary-color); border-radius: 50%; margin-bottom: 16px; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px;">🏥</div>
+                        <h3 style="color: var(--primary-color); margin-bottom: 8px; font-size: 24px;">HomeBridge Health Check</h3>
+                        <p style="color: var(--gray-600); margin-bottom: 20px;">Hello ${parentName}! Ready to start your daily conversation?</p>
+                        <button style="background: var(--primary-color); color: white; padding: 16px 32px; border: none; border-radius: 8px; font-size: 18px; font-weight: 600; cursor: pointer; box-shadow: 0 2px 4px rgba(79, 70, 229, 0.3);">Start Today's Check-in</button>
+                        <p style="font-size: 12px; color: var(--gray-500); margin-top: 12px;">This usually takes 3-5 minutes</p>
+                    </div>
+                `,
+                'email': `
+                    <div style="border: 1px solid var(--gray-300); border-radius: 8px; padding: 20px; background: white; max-width: 400px; margin: 0 auto;">
+                        <div style="text-align: center; margin-bottom: 16px;">
+                            <div style="font-size: 32px; margin-bottom: 8px;">📧</div>
+                            <div style="font-size: 12px; color: var(--gray-500);">From: HomeBridge Health <hello@homebridge.health></div>
+                        </div>
+                        <h3 style="color: var(--gray-900); margin-bottom: 12px;">Good morning ${parentName}! 🌅</h3>
+                        <p style="color: var(--gray-700); line-height: 1.5; margin-bottom: 20px;">It's time for your friendly daily health check-in. This takes just a few minutes and helps keep your family informed about your wellbeing.</p>
+                        <div style="text-align: center; margin: 20px 0;">
+                            <button style="background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; padding: 16px 32px; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 8px rgba(79, 70, 229, 0.3);">✨ Start Today's Check-in ✨</button>
+                        </div>
+                        <p style="font-size: 11px; color: var(--gray-500); text-align: center;">This secure link works for 4 hours and is just for you.</p>
+                    </div>
+                `,
+                'phone': `
+                    <div style="text-align: center; padding: 24px; background: linear-gradient(135deg, #f3f4f6, #e5e7eb); border-radius: 12px;">
+                        <div style="font-size: 48px; margin-bottom: 16px;">📞</div>
+                        <h3 style="color: var(--gray-900); margin-bottom: 8px;">HomeBridge will call ${parentName}</h3>
+                        <p style="color: var(--primary-color); font-weight: 600; font-size: 18px; margin-bottom: 16px;">Daily at 9:00 AM</p>
+                        <div style="background: white; padding: 16px; border-radius: 8px; border-left: 4px solid var(--primary-color); text-align: left; max-width: 300px; margin: 0 auto;">
+                            <p style="color: var(--gray-700); font-style: italic; line-height: 1.4; margin: 0;">
+                                "Hello ${parentName}, this is HomeBridge calling for your daily health check-in. How are you feeling today? I have a few quick questions that will help keep your family informed about your wellbeing."
+                            </p>
+                        </div>
+                        <p style="font-size: 12px; color: var(--gray-500); margin-top: 12px;">Friendly AI voice • Usually 3-5 minutes • Call back anytime</p>
+                    </div>
+                `
+            };
+            
+            previewContent.innerHTML = previews[platform] || '<p style="color: var(--gray-600); font-style: italic;">Preview will appear based on your platform selection</p>';
+        }
+
+        function updateInvitationMessage() {
+            const message = document.getElementById('invitation-message');
+            const parentName = appState.formData.parentName || '[PARENT_NAME]';
+            const familyName = appState.formData.fullName || '[FAMILY_MEMBER_NAME]';
+            const platform = appState.formData.selectedPlatform;
+            
+            const platformDescriptions = {
+                'whatsapp': 'send you friendly WhatsApp messages each day',
+                'website': 'send you a simple website link for daily conversations',
+                'email': 'email you a button to click for daily health chats',
+                'phone': 'call you directly each day for a friendly conversation'
+            };
+            
+            const description = platformDescriptions[platform] || '[PLATFORM_DESCRIPTION]';
+            
+            message.value = message.value
+                .replace(/\[PARENT_NAME\]/g, parentName)
+                .replace(/\[FAMILY_MEMBER_NAME\]/g, familyName)
+                .replace(/\[PLATFORM_DESCRIPTION\]/g, description);
+        }
+
+        // Recommendations Logic
+        function updateRecommendations() {
+            const techComfort = appState.formData.techComfort || document.getElementById('tech-comfort').value;
+            
+            const platformRecommendations = {
+                'smartphone-daily': 'whatsapp',
+                'smartphone-occasional': 'email',
+                'phone-calls': 'phone',
+                'needs-help': 'phone'
+            };
+            
+            const authRecommendations = {
+                'smartphone-daily': 'voice',
+                'smartphone-occasional': 'pin',
+                'phone-calls': 'pin',
+                'needs-help': 'pin'
+            };
+            
+            appState.recommendations.platform = platformRecommendations[techComfort] || 'email';
+            appState.recommendations.auth = authRecommendations[techComfort] || 'pin';
+        }
+
+        // Helper Functions
+        function updateAgeDisplay() {
+            const ageSlider = document.getElementById('parent-age');
+            const ageDisplay = document.getElementById('age-display');
+            ageDisplay.textContent = ageSlider.value;
+        }
+
+        function toggleOptionalDetails() {
+            const content = document.getElementById('optional-details');
+            const icon = document.getElementById('optional-details-icon');
+            
+            if (content.classList.contains('show')) {
+                content.classList.remove('show');
+                icon.textContent = '+';
+            } else {
+                content.classList.add('show');
+                icon.textContent = '−';
+            }
+        }
+
+        function validateEmailReal() {
+            const email = document.getElementById('email');
+            const value = email.value.trim();
+            
+            if (value === '') {
+                email.classList.remove('valid', 'error');
+                hideFieldError('email');
+                hideFieldSuccess('email');
+            } else if (isValidEmail(value)) {
+                email.classList.add('valid');
+                email.classList.remove('error');
+                hideFieldError('email');
+                showFieldSuccess('email');
+            } else {
+                email.classList.add('error');
+                email.classList.remove('valid');
+                showFieldError('email', 'Please enter a valid email address');
+                hideFieldSuccess('email');
+            }
+        }
+
+        function validateParentName() {
+            const parentName = document.getElementById('parent-name');
+            const value = parentName.value.trim();
+            
+            if (value === '') {
+                parentName.classList.remove('valid', 'error');
+                hideFieldError('parent-name');
+            } else if (value.length >= 2) {
+                parentName.classList.add('valid');
+                parentName.classList.remove('error');
+                hideFieldError('parent-name');
+                
+                // Update dynamic content
+                const step2Title = document.getElementById('step2-title');
+                step2Title.textContent = `Tell us about ${value}`;
+                
+                const techSkillsTitle = document.getElementById('tech-skills-title');
+                techSkillsTitle.textContent = `How comfortable is ${value} with technology? *`;
+            } else {
+                parentName.classList.add('error');
+                parentName.classList.remove('valid');
+                showFieldError('parent-name', 'Please enter at least 2 characters');
+            }
+        }
+
+        function validateParentPhone() {
+            const parentPhone = document.getElementById('parent-phone');
+            const value = parentPhone.value.trim();
+            
+            if (value === '') {
+                parentPhone.classList.remove('valid', 'error');
+                hideFieldError('parent-phone');
+            } else if (value.length >= 6) {
+                parentPhone.classList.add('valid');
+                parentPhone.classList.remove('error');
+                hideFieldError('parent-phone');
+            } else {
+                parentPhone.classList.add('error');
+                parentPhone.classList.remove('valid');
+                showFieldError('parent-phone', 'Please enter a valid phone number');
+            }
+        }
+
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function showFieldError(fieldPrefix, message) {
+            const errorElement = document.getElementById(`${fieldPrefix}-error`);
+            const inputElement = document.getElementById(fieldPrefix.includes('-') ? fieldPrefix : fieldPrefix);
+            
+            if (errorElement) {
+                errorElement.textContent = message;
+                errorElement.classList.add('show');
+            }
+            
+            if (inputElement && inputElement.classList) {
+                inputElement.classList.add('error');
+            }
+        }
+
+        function hideFieldError(fieldPrefix) {
+            const errorElement = document.getElementById(`${fieldPrefix}-error`);
+            const inputElement = document.getElementById(fieldPrefix.includes('-') ? fieldPrefix : fieldPrefix);
+            
+            if (errorElement) {
+                errorElement.classList.remove('show');
+            }
+            
+            if (inputElement && inputElement.classList) {
+                inputElement.classList.remove('error');
+            }
+        }
+
+        function showFieldSuccess(fieldPrefix) {
+            const successElement = document.getElementById(`${fieldPrefix}-success`);
+            if (successElement) {
+                successElement.classList.add('show');
+            }
+        }
+
+        function hideFieldSuccess(fieldPrefix) {
+            const successElement = document.getElementById(`${fieldPrefix}-success`);
+            if (successElement) {
+                successElement.classList.remove('show');
+            }
+        }
+
+        // Enhanced Accessibility and UX Functions
+        function handleGlobalKeydown(e) {
+            // Support for keyboard navigation between steps
+            if (e.ctrlKey || e.metaKey) {
+                switch (e.key) {
+                    case 'ArrowLeft':
+                        if (appState.currentStep > 1) {
+                            e.preventDefault();
+                            goToPreviousStep();
+                        }
+                        break;
+                    case 'ArrowRight':
+                        // Allow forward navigation if current step is valid
+                        e.preventDefault();
+                        validateCurrentStepAndProceed();
+                        break;
+                }
+            }
+            
+            // Escape key handling
+            if (e.key === 'Escape') {
+                // Close any modals or return focus to main content
+                const activeElement = document.activeElement;
+                if (activeElement && activeElement.classList.contains('selection-card')) {
+                    activeElement.blur();
+                }
+            }
+        }
+
+        function validateCurrentStepAndProceed() {
+            const currentStep = appState.currentStep;
+            const continueButton = document.querySelector(`#step${currentStep}-continue`);
+            if (continueButton && !continueButton.disabled) {
+                continueButton.click();
+            }
+        }
+
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        // Enhanced loading states with progress indication
+        function setButtonLoading(buttonId, loadingText, progressCallback) {
+            const button = document.getElementById(buttonId);
+            if (!button) return;
+            
+            button.classList.add('btn-loading');
+            button.disabled = true;
+            button.setAttribute('data-original-text', button.textContent);
+            
+            // If progress callback provided, show progress
+            if (progressCallback) {
+                let progress = 0;
+                const interval = setInterval(() => {
+                    progress += 10;
+                    button.textContent = `${loadingText} ${progress}%`;
+                    if (progress >= 100) {
+                        clearInterval(interval);
+                    }
+                }, 150);
+                button.setAttribute('data-progress-interval', interval);
+            } else {
+                button.textContent = loadingText;
+            }
+        }
+
+        function resetButtonLoading(buttonId, originalText) {
+            const button = document.getElementById(buttonId);
+            if (!button) return;
+            
+            // Clear any progress interval
+            const interval = button.getAttribute('data-progress-interval');
+            if (interval) {
+                clearInterval(parseInt(interval));
+                button.removeAttribute('data-progress-interval');
+            }
+            
+            button.classList.remove('btn-loading');
+            button.disabled = false;
+            button.textContent = originalText || button.getAttribute('data-original-text') || 'Continue';
+        }
+
+        // Data Persistence with enhanced auto-save
+        function saveFormData() {
+            try {
+                const formData = gatherAllFormData();
+                const saveData = {
+                    currentStep: appState.currentStep,
+                    formData: formData,
+                    recommendations: appState.recommendations,
+                    timestamp: new Date().toISOString(),
+                    version: '1.0'
+                };
+                
+                localStorage.setItem('homebridge-registration', JSON.stringify(saveData));
+                
+                // Show subtle save indicator
+                showSaveIndicator();
+                
+                console.log('Form data auto-saved successfully');
+            } catch (e) {
+                console.warn('Could not save form data to localStorage:', e);
+                showSaveError();
+            }
+        }
+
+        function gatherAllFormData() {
+            const formData = { ...appState.formData };
+            
+            // Gather data from all active forms
+            const forms = ['family-form', 'parent-form'];
+            forms.forEach(formId => {
+                const form = document.getElementById(formId);
+                if (form) {
+                    const data = new FormData(form);
+                    Object.assign(formData, Object.fromEntries(data));
+                }
+            });
+            
+            // Gather selection data
+            formData.techComfort = document.getElementById('tech-comfort').value;
+            formData.selectedPlatform = document.getElementById('selected-platform').value;
+            formData.selectedAuth = document.getElementById('selected-auth').value;
+            
+            return formData;
+        }
+
+        function showSaveIndicator() {
+            // Create or update save indicator
+            let indicator = document.getElementById('save-indicator');
+            if (!indicator) {
+                indicator = document.createElement('div');
+                indicator.id = 'save-indicator';
+                indicator.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: var(--secondary-color);
+                    color: white;
+                    padding: 8px 16px;
+                    border-radius: 6px;
+                    font-size: 14px;
+                    z-index: 1000;
+                    transition: opacity 0.3s ease;
+                `;
+                document.body.appendChild(indicator);
+            }
+            
+            indicator.textContent = '✓ Progress saved';
+            indicator.style.opacity = '1';
+            
+            setTimeout(() => {
+                indicator.style.opacity = '0';
+            }, 2000);
+        }
+
+        function showSaveError() {
+            console.warn('Auto-save failed - data will be lost on page refresh');
+        }
+
+        function loadSavedData() {
+            try {
+                const saved = localStorage.getItem('homebridge-registration');
+                if (saved) {
+                    const data = JSON.parse(saved);
+                    Object.assign(appState, data);
+                    
+                    // Restore form fields
+                    restoreFormFields();
+                }
+            } catch (e) {
+                console.warn('Could not load saved form data:', e);
+            }
+        }
+
+        function restoreFormFields() {
+            // Restore basic form fields
+            Object.keys(appState.formData).forEach(key => {
+                const element = document.querySelector(`[name="${key}"]`);
+                if (element) {
+                    if (element.type === 'checkbox' || element.type === 'radio') {
+                        element.checked = appState.formData[key];
+                    } else {
+                        element.value = appState.formData[key];
+                    }
+                }
+            });
+            
+            // Restore complex selections
+            if (appState.formData.techComfort) {
+                const techCard = document.querySelector(`[data-value="${appState.formData.techComfort}"]`);
+                if (techCard) selectTechComfort(techCard);
+            }
+            
+            if (appState.formData.selectedPlatform) {
+                const platformCard = document.querySelector(`[data-platform="${appState.formData.selectedPlatform}"]`);
+                if (platformCard) selectPlatform(platformCard);
+            }
+            
+            if (appState.formData.selectedAuth) {
+                const authCard = document.querySelector(`[data-auth="${appState.formData.selectedAuth}"]`);
+                if (authCard) selectAuthMethod(authCard);
+            }
+            
+            // Update age display
+            if (appState.formData.parentAge) {
+                updateAgeDisplay();
+            }
+        }
+
+        // Accessibility Support
+        document.addEventListener('keydown', function(e) {
+            // Support for keyboard navigation
+            if (e.key === 'Escape') {
+                // Close any open modals or dropdowns
+            }
+            
+            if (e.key === 'Tab') {
+                // Ensure proper tab order
+            }
+        });
+
+        // Print Support
+        window.addEventListener('beforeprint', function() {
+            // Optimize layout for printing
+            document.body.classList.add('printing');
+        });
+
+        window.addEventListener('afterprint', function() {
+            document.body.classList.remove('printing');
+        });
+
+        // Error Recovery
+        window.addEventListener('error', function(e) {
+            console.error('Application error:', e);
+            // Could show user-friendly error message
+        });
+
+        // Network Status
+        window.addEventListener('online', function() {
+            console.log('Network connection restored');
+        });
+
+        window.addEventListener('offline', function() {
+            console.log('Network connection lost - data will be saved locally');
+        });
+    </script>
+</body>
+</html>

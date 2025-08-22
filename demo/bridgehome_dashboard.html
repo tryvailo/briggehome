@@ -1,0 +1,1513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Margaret Thompson - BridgeHome Dashboard</title>
+    <meta name="description" content="Personal health and wellbeing dashboard for Margaret Thompson">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        /* Modern CSS Reset */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Dashboard Color Scheme */
+        :root {
+            --primary-blue: #2563EB;
+            --success-green: #10B981;
+            --warning-orange: #F59E0B;
+            --danger-red: #EF4444;
+            --neutral-grey: #6B7280;
+            --light-grey: #F9FAFB;
+            --white: #FFFFFF;
+            --text-dark: #1F2937;
+            --text-light: #6B7280;
+            --border-color: #E5E7EB;
+            --accent-purple: #8B5CF6;
+            --accent-pink: #EC4899;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--light-grey);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Dashboard Container */
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .dashboard-header {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            border: 1px solid var(--border-color);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        .profile-details h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .location-info {
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 8px;
+        }
+
+        .last-checkin {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .status-badge {
+            background: linear-gradient(135deg, var(--success-green), #059669);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .header-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .family-members {
+            display: flex;
+            gap: 16px;
+        }
+
+        .family-member {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: var(--light-grey);
+            border-radius: 12px;
+        }
+
+        .family-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid var(--success-green);
+            background: var(--primary-blue);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1D4ED8;
+            transform: translateY(-1px);
+        }
+
+        .btn-danger {
+            background: var(--danger-red);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #DC2626;
+            transform: translateY(-1px);
+        }
+
+        /* Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 24px;
+        }
+
+        .dashboard-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .card-icon {
+            font-size: 20px;
+        }
+
+        /* Today's Summary */
+        .summary-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .metric-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            background: var(--light-grey);
+            border-radius: 12px;
+        }
+
+        .metric-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .metric-icon.mood { background: linear-gradient(135deg, #FEF3C7, #F59E0B); }
+        .metric-icon.energy { background: linear-gradient(135deg, #ECFDF5, var(--success-green)); }
+        .metric-icon.sleep { background: linear-gradient(135deg, #EDE9FE, var(--accent-purple)); }
+        .metric-icon.social { background: linear-gradient(135deg, #FCE7F3, var(--accent-pink)); }
+
+        .metric-details h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 2px;
+        }
+
+        .metric-value {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .metric-trend {
+            font-size: 12px;
+            color: var(--success-green);
+            display: flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .quote-section {
+            background: linear-gradient(135deg, #EFF6FF, #DBEAFE);
+            padding: 16px;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary-blue);
+        }
+
+        .quote-text {
+            font-style: italic;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .quote-source {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        /* Health Trends Chart */
+        .chart-container {
+            height: 300px;
+            margin-bottom: 16px;
+            position: relative;
+            background: var(--light-grey);
+            border-radius: 8px;
+            padding: 8px;
+        }
+
+        .chart-container canvas {
+            border-radius: 8px;
+        }
+
+        .chart-fallback {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: var(--text-light);
+            font-style: italic;
+            background: var(--white);
+            border-radius: 8px;
+            border: 2px dashed var(--border-color);
+        }
+
+        .trend-insights {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .insight-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .insight-item.positive {
+            background: #ECFDF5;
+            color: #065F46;
+        }
+
+        .insight-item.warning {
+            background: #FFFBEB;
+            color: #92400E;
+        }
+
+        /* Medication Tracking */
+        .medication-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .medication-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            background: var(--light-grey);
+            border-radius: 12px;
+        }
+
+        .medication-info h4 {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .medication-schedule {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .medication-status {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 4px;
+        }
+
+        .status-taken {
+            color: var(--success-green);
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .status-pending {
+            color: var(--warning-orange);
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .streak-count {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .medication-summary {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .summary-stat {
+            text-align: center;
+            padding: 12px;
+            background: var(--light-grey);
+            border-radius: 8px;
+        }
+
+        .summary-stat .number {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+
+        .summary-stat .label {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-top: 4px;
+        }
+
+        /* Conversation Highlights */
+        .conversation-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .conversation-item {
+            border-left: 4px solid var(--primary-blue);
+            padding: 16px;
+            background: var(--light-grey);
+            border-radius: 0 12px 12px 0;
+        }
+
+        .conversation-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .conversation-time {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .conversation-duration {
+            font-size: 12px;
+            color: var(--text-light);
+            background: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .conversation-content {
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .conversation-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .tag.mood { background: #FEF3C7; color: #92400E; }
+        .tag.social { background: #FCE7F3; color: #BE185D; }
+        .tag.physical { background: #ECFDF5; color: #065F46; }
+        .tag.sleep { background: #EDE9FE; color: #5B21B6; }
+        .tag.health { background: #DBEAFE; color: #1E40AF; }
+        .tag.family { background: #FEE2E2; color: #991B1B; }
+
+        /* Family Connections */
+        .family-connections {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .family-connection-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            background: var(--light-grey);
+            border-radius: 12px;
+        }
+
+        .family-connection-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 3px solid var(--success-green);
+            background: var(--primary-blue);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .family-connection-details h4 {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .family-connection-details p {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 2px;
+        }
+
+        .family-notes {
+            background: #EFF6FF;
+            padding: 16px;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary-blue);
+        }
+
+        .family-notes h4 {
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-dark);
+        }
+
+        .note-item {
+            margin-bottom: 8px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .note-item strong {
+            color: var(--primary-blue);
+        }
+
+        /* Health Vitals */
+        .vitals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .vital-item {
+            text-align: center;
+            padding: 16px;
+            background: var(--light-grey);
+            border-radius: 12px;
+        }
+
+        .vital-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .vital-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .vital-label {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-bottom: 2px;
+        }
+
+        .vital-status {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--success-green);
+        }
+
+        .appointment-card {
+            display: flex;
+            gap: 16px;
+            padding: 16px;
+            background: var(--light-grey);
+            border-radius: 12px;
+            align-items: center;
+        }
+
+        .appointment-date {
+            text-align: center;
+            background: var(--primary-blue);
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            min-width: 60px;
+        }
+
+        .appointment-date .day {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .appointment-date .month {
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        .appointment-details {
+            flex: 1;
+        }
+
+        .appointment-details h4 {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .appointment-details p {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .btn-reminder {
+            background: var(--warning-orange);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Safety Status */
+        .safety-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .safety-item {
+            padding: 16px;
+            background: var(--light-grey);
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .safety-item h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .safety-item p {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-bottom: 8px;
+        }
+
+        .safety-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--success-green);
+        }
+
+        .emergency-plan {
+            background: #FEF2F2;
+            padding: 16px;
+            border-radius: 12px;
+            border-left: 4px solid var(--danger-red);
+        }
+
+        .emergency-plan h4 {
+            color: var(--danger-red);
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .emergency-plan ul {
+            list-style: none;
+            font-size: 14px;
+        }
+
+        .emergency-plan li {
+            margin-bottom: 4px;
+            color: var(--text-dark);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-container {
+                padding: 16px;
+            }
+            
+            .header-top,
+            .header-bottom {
+                flex-direction: column;
+                gap: 16px;
+            }
+            
+            .family-members {
+                justify-content: center;
+            }
+            
+            .action-buttons {
+                justify-content: center;
+            }
+            
+            .vitals-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* Accessibility */
+        .dashboard-card:focus-within {
+            outline: 2px solid var(--primary-blue);
+            outline-offset: 2px;
+        }
+
+        @media (prefers-contrast: high) {
+            :root {
+                --text-light: #000000;
+                --border-color: #000000;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Loading states */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .loading::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid var(--primary-blue);
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-top">
+                <div class="profile-info">
+                    <div class="profile-avatar">MT</div>
+                    <div class="profile-details">
+                        <h1>Margaret Thompson</h1>
+                        <div class="location-info">
+                            <span>📍</span>
+                            <span>Leeds, West Yorkshire</span>
+                        </div>
+                        <div class="last-checkin">Last check-in: Today, 9:32 AM</div>
+                    </div>
+                </div>
+                <div class="status-badge">
+                    <span>😊</span>
+                    <span>Feeling Good Today</span>
+                </div>
+            </div>
+            
+            <div class="header-bottom">
+                <div class="family-members">
+                    <div class="family-member">
+                        <div class="family-avatar">S</div>
+                        <span>Sarah</span>
+                    </div>
+                    <div class="family-member">
+                        <div class="family-avatar">D</div>
+                        <span>David</span>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <a href="tel:+441134567890" class="btn btn-primary">
+                        <span>📞</span>
+                        <span>Call Margaret</span>
+                    </a>
+                    <button class="btn btn-danger" onclick="showEmergencyAlert()">
+                        <span>🚨</span>
+                        <span>Emergency Alert</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Grid -->
+        <main class="dashboard-grid">
+            <!-- Today's Summary -->
+            <section class="dashboard-card">
+                <div class="card-header">
+                    <h2 class="card-title">Today's Wellbeing</h2>
+                    <span class="card-icon">📊</span>
+                </div>
+                
+                <div class="summary-grid">
+                    <div class="metric-item">
+                        <div class="metric-icon mood">😊</div>
+                        <div class="metric-details">
+                            <h4>Mood</h4>
+                            <div class="metric-value">Cheerful (8/10)</div>
+                            <div class="metric-trend">↗️ +1 from yesterday</div>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-item">
+                        <div class="metric-icon energy">⚡</div>
+                        <div class="metric-details">
+                            <h4>Energy Level</h4>
+                            <div class="metric-value">Good (7/10)</div>
+                            <div class="metric-trend">➡️ Stable</div>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-item">
+                        <div class="metric-icon sleep">😴</div>
+                        <div class="metric-details">
+                            <h4>Sleep Quality</h4>
+                            <div class="metric-value">7.5 hours</div>
+                            <div class="metric-trend">↗️ Slept well</div>
+                        </div>
+                    </div>
+                    
+                    <div class="metric-item">
+                        <div class="metric-icon social">👥</div>
+                        <div class="metric-details">
+                            <h4>Social Activity</h4>
+                            <div class="metric-value">Called friend Jean</div>
+                            <div class="metric-trend">↗️ Active social day</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="quote-section">
+                    <p class="quote-text">"Had a lovely morning in the garden. The roses are blooming beautifully this year!"</p>
+                    <p class="quote-source">- This morning's chat with BridgeHome</p>
+                </div>
+            </section>
+
+            <!-- Health Trends Chart -->
+            <section class="dashboard-card">
+                <div class="card-header">
+                    <h2 class="card-title">7-Day Health Trends</h2>
+                    <span class="card-icon">📈</span>
+                </div>
+                
+                <div class="chart-container">
+                    <canvas id="healthTrendsChart"></canvas>
+                </div>
+                
+                <div class="trend-insights">
+                    <div class="insight-item positive">
+                        <span>📈</span>
+                        <span>Improved Sleep: Average 7.2 hours this week (up from 6.8 last week)</span>
+                    </div>
+                    <div class="insight-item warning">
+                        <span>⚠️</span>
+                        <span>Note: Mentioned knee stiffness on Tuesday - weather related</span>
+                    </div>
+                    <div class="insight-item positive">
+                        <span>😊</span>
+                        <span>Great Social Week: 4 meaningful conversations with friends</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Medication Tracking -->
+            <section class="dashboard-card">
+                <div class="card-header">
+                    <h2 class="card-title">Medication Adherence</h2>
+                    <span class="card-icon">💊</span>
+                </div>
+                
+                <div class="medication-list">
+                    <div class="medication-item">
+                        <div class="medication-info">
+                            <h4>Metformin 500mg</h4>
+                            <p class="medication-schedule">Morning & Evening</p>
+                        </div>
+                        <div class="medication-status">
+                            <div class="status-taken">✅ Taken today</div>
+                            <div class="streak-count">14-day streak</div>
+                        </div>
+                    </div>
+                    
+                    <div class="medication-item">
+                        <div class="medication-info">
+                            <h4>Amlodipine 5mg</h4>
+                            <p class="medication-schedule">Once daily, morning</p>
+                        </div>
+                        <div class="medication-status">
+                            <div class="status-taken">✅ Taken 9:15 AM</div>
+                            <div class="streak-count">21-day streak</div>
+                        </div>
+                    </div>
+                    
+                    <div class="medication-item">
+                        <div class="medication-info">
+                            <h4>Glucosamine 1000mg</h4>
+                            <p class="medication-schedule">With dinner</p>
+                        </div>
+                        <div class="medication-status">
+                            <div class="status-pending">⏰ Due at 6:00 PM</div>
+                            <div class="streak-count">18-day streak</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="medication-summary">
+                    <div class="summary-stat">
+                        <div class="number">96%</div>
+                        <div class="label">This month's adherence</div>
+                    </div>
+                    <div class="summary-stat">
+                        <div class="number">23 Aug</div>
+                        <div class="label">Next prescription due</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Conversation Highlights -->
+            <section class="dashboard-card">
+                <div class="card-header">
+                    <h2 class="card-title">Recent Conversations</h2>
+                    <span class="card-icon">💬</span>
+                </div>
+                
+                <div class="conversation-list">
+                    <div class="conversation-item">
+                        <div class="conversation-header">
+                            <div class="conversation-time">Today, 9:32 AM</div>
+                            <div class="conversation-duration">6 min chat</div>
+                        </div>
+                        <div class="conversation-content">
+                            Margaret shared: "Spent an hour in the garden this morning. The new roses are absolutely gorgeous! Jean called and we're planning to visit the garden center next week."
+                        </div>
+                        <div class="conversation-tags">
+                            <span class="tag mood">Mood: Positive</span>
+                            <span class="tag social">Social: Active</span>
+                            <span class="tag physical">Physical: Mobile</span>
+                        </div>
+                    </div>
+                    
+                    <div class="conversation-item">
+                        <div class="conversation-header">
+                            <div class="conversation-time">Yesterday, 10:15 AM</div>
+                            <div class="conversation-duration">4 min chat</div>
+                        </div>
+                        <div class="conversation-content">
+                            Margaret shared: "Knee was a bit stiff yesterday evening, probably the rain. Slept better though - 8 hours! David called and we had a lovely chat about his new job."
+                        </div>
+                        <div class="conversation-tags">
+                            <span class="tag physical">Physical: Minor discomfort</span>
+                            <span class="tag sleep">Sleep: Excellent</span>
+                            <span class="tag family">Family: Connected</span>
+                        </div>
+                    </div>
+                    
+                    <div class="conversation-item">
+                        <div class="conversation-header">
+                            <div class="conversation-time">Tuesday, 9:45 AM</div>
+                            <div class="conversation-duration">5 min chat</div>
+                        </div>
+                        <div class="conversation-content">
+                            Margaret shared: "Feeling a bit tired today, but blood sugar readings have been good. Made Sarah's favorite cake recipe - might post it to her."
+                        </div>
+                        <div class="conversation-tags">
+                            <span class="tag mood">Energy: Lower</span>
+                            <span class="tag health">Health: Good management</span>
+                            <span class="tag family">Family: Thoughtful</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Family Connections -->
+            <section class="dashboard-card">
+                <div class="card-header">
+                    <h2 class="card-title">Family Connections This Week</h2>
+                    <span class="card-icon">👨‍👩‍👧‍👦</span>
+                </div>
+                
+                <div class="family-connections">
+                    <div class="family-connection-item">
+                        <div class="family-connection-avatar">S</div>
+                        <div class="family-connection-details">
+                            <h4>Sarah</h4>
+                            <p>2 phone calls this week</p>
+                            <p>Last: Monday 7:00 PM (45 min)</p>
+                            <p><strong>Margaret felt: Very happy</strong></p>
+                        </div>
+                    </div>
+                    
+                    <div class="family-connection-item">
+                        <div class="family-connection-avatar">D</div>
+                        <div class="family-connection-details">
+                            <h4>David</h4>
+                            <p>1 phone call, 3 text messages</p>
+                            <p>Last: Yesterday 2:30 PM (20 min)</p>
+                            <p><strong>Margaret felt: Proud & happy</strong></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="family-notes">
+                    <h4>Family Notes</h4>
+                    <p class="note-item"><strong>For Sarah:</strong> Mum mentioned she'd love to see photos from your holiday. She's also excited about the garden center trip with Jean.</p>
+                    <p class="note-item"><strong>For David:</strong> Mum is very proud of your new promotion. She mentioned wanting to cook your favorite Sunday roast when you next visit.</p>
+                </div>
+            </section>
+
+            <!-- Health Vitals & Appointments -->
+            <section class="dashboard-card">
+                <div class="card-header">
+                    <h2 class="card-title">Health Vitals & Schedule</h2>
+                    <span class="card-icon">🩺</span>
+                </div>
+                
+                <div class="vitals-grid">
+                    <div class="vital-item">
+                        <div class="vital-icon">🩺</div>
+                        <div class="vital-value">128/82</div>
+                        <div class="vital-label">Blood Pressure</div>
+                        <div class="vital-label">Aug 14</div>
+                        <div class="vital-status">Within range</div>
+                    </div>
+                    
+                    <div class="vital-item">
+                        <div class="vital-icon">🩸</div>
+                        <div class="vital-value">6.8</div>
+                        <div class="vital-label">Blood Sugar (mmol/L)</div>
+                        <div class="vital-label">This morning</div>
+                        <div class="vital-status">Well controlled</div>
+                    </div>
+                    
+                    <div class="vital-item">
+                        <div class="vital-icon">⚖️</div>
+                        <div class="vital-value">68.5kg</div>
+                        <div class="vital-label">Weight</div>
+                        <div class="vital-label">Aug 12</div>
+                        <div class="vital-status">Stable</div>
+                    </div>
+                </div>
+                
+                <h4 style="margin: 20px 0 12px 0; font-weight: 600;">Upcoming Appointments</h4>
+                <div class="appointment-card">
+                    <div class="appointment-date">
+                        <div class="day">28</div>
+                        <div class="month">Aug</div>
+                    </div>
+                    <div class="appointment-details">
+                        <h4>GP Check-up</h4>
+                        <p>Dr. Sarah Mitchell</p>
+                        <p>10:30 AM - Routine diabetes review</p>
+                    </div>
+                    <button class="btn-reminder" onclick="setReminder()">Set Reminder</button>
+                </div>
+            </section>
+
+            <!-- Safety & Emergency Status -->
+            <section class="dashboard-card">
+                <div class="card-header">
+                    <h2 class="card-title">Safety & Emergency Status</h2>
+                    <span class="card-icon">🛡️</span>
+                </div>
+                
+                <div class="safety-grid">
+                    <div class="safety-item">
+                        <h4>🏠 Home Activity</h4>
+                        <p>Normal daily patterns detected</p>
+                        <p>Last activity: 30 minutes ago</p>
+                        <div class="safety-status">✅ All Good</div>
+                    </div>
+                    
+                    <div class="safety-item">
+                        <h4>📱 Device Connection</h4>
+                        <p>BridgeHome companion active</p>
+                        <p>Last check-in: Today 9:32 AM</p>
+                        <div class="safety-status">✅ Connected</div>
+                    </div>
+                    
+                    <div class="safety-item">
+                        <h4>🔧 Emergency Contacts</h4>
+                        <p>All contacts verified & reachable</p>
+                        <p>Last updated: Aug 10</p>
+                        <div class="safety-status">✅ Ready</div>
+                    </div>
+                </div>
+                
+                <div class="emergency-plan">
+                    <h4>Emergency Response Plan</h4>
+                    <ul>
+                        <li>• Contact Margaret directly: 0113 456 7890</li>
+                        <li>• If no response, contact neighbor Mrs. Wilson: 0113 456 7891</li>
+                        <li>• Emergency services: 999</li>
+                        <li>• Family notification: Sarah & David simultaneously</li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Health Trends Chart
+            const ctx = document.getElementById('healthTrendsChart');
+            if (ctx) {
+                const healthTrendsChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+                        datasets: [
+                            {
+                                label: 'Mood (1-10)',
+                                data: [7, 6, 7, 8, 8, 9, 8],
+                                borderColor: '#F59E0B',
+                                backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                                tension: 0.4,
+                                fill: true,
+                                pointBackgroundColor: '#F59E0B',
+                                pointBorderColor: '#FFFFFF',
+                                pointBorderWidth: 2,
+                                pointRadius: 5,
+                                pointHoverRadius: 7
+                            },
+                            {
+                                label: 'Energy (1-10)',
+                                data: [6, 5, 6, 7, 7, 8, 7],
+                                borderColor: '#10B981',
+                                backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                                tension: 0.4,
+                                fill: true,
+                                pointBackgroundColor: '#10B981',
+                                pointBorderColor: '#FFFFFF',
+                                pointBorderWidth: 2,
+                                pointRadius: 5,
+                                pointHoverRadius: 7
+                            },
+                            {
+                                label: 'Sleep (hours)',
+                                data: [6.5, 6.0, 6.8, 7.2, 7.5, 8.0, 7.5],
+                                borderColor: '#8B5CF6',
+                                backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                                tension: 0.4,
+                                fill: true,
+                                pointBackgroundColor: '#8B5CF6',
+                                pointBorderColor: '#FFFFFF',
+                                pointBorderWidth: 2,
+                                pointRadius: 5,
+                                pointHoverRadius: 7
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        interaction: {
+                            intersect: false,
+                            mode: 'index'
+                        },
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    usePointStyle: true,
+                                    padding: 20,
+                                    font: {
+                                        size: 12,
+                                        family: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif'
+                                    }
+                                }
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                                titleFont: {
+                                    size: 14,
+                                    weight: 'bold'
+                                },
+                                bodyFont: {
+                                    size: 12
+                                },
+                                cornerRadius: 8,
+                                displayColors: true,
+                                callbacks: {
+                                    title: function(context) {
+                                        return context[0].label;
+                                    },
+                                    label: function(context) {
+                                        let label = context.dataset.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        if (context.parsed.y !== null) {
+                                            if (context.dataset.label === 'Sleep (hours)') {
+                                                label += context.parsed.y + ' hours';
+                                            } else {
+                                                label += context.parsed.y + '/10';
+                                            }
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 10,
+                                grid: {
+                                    color: '#E5E7EB',
+                                    lineWidth: 1
+                                },
+                                ticks: {
+                                    font: {
+                                        size: 11
+                                    },
+                                    color: '#6B7280'
+                                }
+                            },
+                            x: {
+                                grid: {
+                                    color: '#E5E7EB',
+                                    lineWidth: 1
+                                },
+                                ticks: {
+                                    font: {
+                                        size: 11
+                                    },
+                                    color: '#6B7280',
+                                    maxRotation: 0
+                                }
+                            }
+                        },
+                        elements: {
+                            line: {
+                                borderWidth: 3
+                            }
+                        }
+                    }
+                });
+            }
+        });
+
+        // Interactive Functions
+        function showEmergencyAlert() {
+            if (confirm('This will immediately alert emergency services and family members. Are you sure?')) {
+                // Show loading state
+                const btn = event.target.closest('.btn-danger');
+                const originalContent = btn.innerHTML;
+                btn.innerHTML = '<span>🚨</span><span>Sending Alert...</span>';
+                btn.disabled = true;
+                
+                setTimeout(() => {
+                    alert('Emergency alert sent to:\n• Emergency Services: 999\n• Sarah Thompson\n• David Thompson\n• Local emergency contact');
+                    btn.innerHTML = originalContent;
+                    btn.disabled = false;
+                }, 2000);
+            }
+        }
+
+        function setReminder() {
+            const btn = event.target;
+            const originalText = btn.textContent;
+            btn.textContent = 'Setting...';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                alert('Reminder set for GP appointment on August 28th at 10:30 AM with Dr. Sarah Mitchell');
+                btn.textContent = 'Reminder Set ✓';
+                btn.style.background = '#10B981';
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = '';
+                    btn.disabled = false;
+                }, 2000);
+            }, 1000);
+        }
+
+        // Auto-refresh dashboard every 5 minutes
+        let refreshInterval = setInterval(() => {
+            console.log('Dashboard refreshing...');
+            // Update last activity time
+            updateActivityTime();
+        }, 300000);
+
+        function updateActivityTime() {
+            const safetyItems = document.querySelectorAll('.safety-item p');
+            safetyItems.forEach(item => {
+                if (item.textContent.includes('Last activity')) {
+                    const now = new Date();
+                    const minutesAgo = Math.floor(Math.random() * 60) + 1;
+                    item.textContent = `Last activity: ${minutesAgo} minutes ago`;
+                }
+            });
+        }
+
+        // Accessibility improvements
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                // Close any open modals or focused elements
+                if (document.activeElement) {
+                    document.activeElement.blur();
+                }
+            }
+            
+            // Quick navigation with keyboard shortcuts
+            if (e.altKey) {
+                switch(e.key) {
+                    case '1':
+                        document.querySelector('.dashboard-card').focus();
+                        break;
+                    case 'c':
+                        document.querySelector('a[href^="tel:"]').click();
+                        break;
+                    case 'e':
+                        showEmergencyAlert();
+                        break;
+                }
+            }
+        });
+
+        // Real-time updates simulation
+        function simulateRealTimeUpdates() {
+            const statusBadge = document.querySelector('.status-badge span:last-child');
+            const lastCheckin = document.querySelector('.last-checkin');
+            
+            if (lastCheckin) {
+                // Update last check-in time every minute
+                setInterval(() => {
+                    const now = new Date();
+                    const timeString = now.toLocaleTimeString('en-GB', { 
+                        hour: '2-digit', 
+                        minute: '2-digit' 
+                    });
+                    lastCheckin.textContent = `Last check-in: Today, ${timeString}`;
+                }, 60000);
+            }
+            
+            // Simulate mood changes
+            if (statusBadge) {
+                const moods = [
+                    { emoji: '😊', text: 'Feeling Good Today' },
+                    { emoji: '😌', text: 'Feeling Peaceful' },
+                    { emoji: '🌸', text: 'Enjoying the Garden' },
+                    { emoji: '☕', text: 'Having Tea Time' }
+                ];
+                
+                setInterval(() => {
+                    const randomMood = moods[Math.floor(Math.random() * moods.length)];
+                    statusBadge.innerHTML = `<span>${randomMood.emoji}</span><span>${randomMood.text}</span>`;
+                }, 900000); // Every 15 minutes
+            }
+        }
+
+        // Initialize real-time updates
+        simulateRealTimeUpdates();
+
+        // Loading states for interactive elements
+        document.querySelectorAll('.btn:not(.btn-danger), button:not([onclick])').forEach(button => {
+            button.addEventListener('click', function(e) {
+                if (this.classList.contains('loading')) return;
+                
+                // Skip if it's a link with href
+                if (this.tagName === 'A' && this.getAttribute('href')) return;
+                
+                this.classList.add('loading');
+                const originalText = this.textContent;
+                this.textContent = 'Loading...';
+                
+                setTimeout(() => {
+                    this.classList.remove('loading');
+                    this.textContent = originalText;
+                }, 1500);
+            });
+        });
+
+        // Smooth scrolling for card focus
+        document.querySelectorAll('.dashboard-card').forEach((card, index) => {
+            card.setAttribute('tabindex', '0');
+            card.setAttribute('role', 'region');
+            card.setAttribute('aria-label', `Dashboard section ${index + 1}`);
+            
+            card.addEventListener('click', () => {
+                card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                card.focus();
+            });
+            
+            card.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    card.click();
+                }
+            });
+        });
+
+        // Enhance conversation items
+        document.querySelectorAll('.conversation-item').forEach(item => {
+            item.addEventListener('click', function() {
+                this.style.background = '#EFF6FF';
+                setTimeout(() => {
+                    this.style.background = '';
+                }, 2000);
+            });
+        });
+
+        // Add copy functionality for emergency numbers
+        document.querySelectorAll('.emergency-plan li').forEach(item => {
+            item.addEventListener('click', function() {
+                const text = this.textContent;
+                const phoneMatch = text.match(/\d{4} \d{3} \d{4}/);
+                if (phoneMatch) {
+                    navigator.clipboard.writeText(phoneMatch[0]).then(() => {
+                        const originalText = this.textContent;
+                        this.style.background = '#ECFDF5';
+                        this.style.color = '#065F46';
+                        setTimeout(() => {
+                            this.style.background = '';
+                            this.style.color = '';
+                        }, 1000);
+                    }).catch(() => {
+                        console.log('Could not copy phone number');
+                    });
+                }
+            });
+        });
+
+        // Medication reminder notifications
+        function checkMedicationReminders() {
+            const pendingMeds = document.querySelectorAll('.status-pending');
+            pendingMeds.forEach(med => {
+                const parent = med.closest('.medication-item');
+                if (parent) {
+                    parent.style.animation = 'pulse 2s infinite';
+                }
+            });
+        }
+
+        // Run medication check
+        checkMedicationReminders();
+
+        // Add pulse animation to CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.02); }
+                100% { transform: scale(1); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Error handling for chart
+        window.addEventListener('error', function(e) {
+            if (e.message.includes('Chart')) {
+                console.error('Chart.js error:', e);
+                const chartContainer = document.querySelector('.chart-container');
+                if (chartContainer) {
+                    chartContainer.innerHTML = '<div style="display: flex; align-items: center; justify-content: center; height: 100%; color: #6B7280; font-style: italic;">Chart loading... Please refresh if not visible.</div>';
+                }
+            }
+        });
+
+        console.log('BridgeHome Dashboard loaded successfully');
+    </script>
+</body>
+</html>
