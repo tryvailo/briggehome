@@ -1,0 +1,13 @@
+Parameter,Technology_Category,Accuracy_Performance,Commercial_Readiness,Elderly_Suitability,GenAI_Enhancement_2024,HomeBridge_Integration
+Voice Cognitive Decline Detection,Voice Biomarkers,86% AUC (Sonde Health),FDA breakthrough (Commercial),High (voice-first natural),LLM semantic analysis,Core feature
+Voice Depression Screening,Voice Biomarkers,78-86% AUC (Kintsugi),FDA cleared (Commercial),High (conversational),ChatGPT emotional intelligence,Core feature
+Voice Frailty Assessment,Voice Biomarkers,OR 0.81-1.43 (Research),Research phase,Medium (requires training),Advanced pattern recognition,Advanced feature
+Camera Heart Rate Monitoring,Computer Vision,2.60 bpm RMSE (FaceHeart),FDA cleared (Commercial),High (non-contact),Computer vision transformers,Core feature
+Camera Blood Pressure Estimation,Computer Vision,6.91/4.88 mmHg RMSE,FDA cleared (Commercial),High (easy measurement),AI image processing,Advanced feature
+Camera Respiratory Rate,Computer Vision,2.22 cpm RMSE,CE marked (Commercial),High (automatic),Real-time video analysis,Core feature
+Facial Expression Analysis,Computer Vision,84% correlation with experts,Research/Limited commercial,Medium (privacy concerns),Emotion AI integration,Enhancement feature
+Fall Detection (Computer Vision),Computer Vision,85%+ sensitivity/specificity,Commercial available,High (safety critical),Predictive analytics,Safety feature
+Gait Analysis,Computer Vision,70-85% gait parameter accuracy,Research phase,High (independence),Movement pattern AI,Wellness feature
+Multimodal Health Assessment,Multimodal GenAI,70-90% comprehensive assessment,Early research,High (comprehensive),GPT-4V multimodal analysis,Future core platform
+ADL Recognition,Multimodal GenAI,50%+ TPR with multimodal,Research phase,Medium (complexity),Behavior prediction models,Future enhancement
+Medication Adherence Monitoring,Multimodal GenAI,80-90% adherence detection,Early research,High (medication safety),Smart monitoring systems,Future feature

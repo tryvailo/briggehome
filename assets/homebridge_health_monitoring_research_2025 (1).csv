@@ -1,0 +1,19 @@
+Health_Parameter,Technology_Category,Current_Accuracy_Performance,Commercial_Readiness_2024,Elderly_Suitability_Rating,GenAI_Enhancement_2024_2025,HomeBridge_Integration_Priority,Foundational_AI_Models_Applicability
+Voice Cognitive Decline Detection,Voice Biomarkers,86% AUC (Sonde Health),FDA breakthrough (Sonde),High (voice-first natural),GPT-4 Audio + LLM analysis,Core feature (Phase 1),"GPT-4 Audio, Whisper, Claude"
+Voice Depression Screening,Voice Biomarkers,78-86% AUC (Kintsugi),FDA cleared (Kintsugi),High (conversational),ChatGPT emotional intelligence,Core feature (Phase 1),"GPT-4, Claude, Gemini Pro"
+Voice Frailty Assessment,Voice Biomarkers,OR 0.81-1.43 (Research),Research phase,Medium (training needed),Advanced NLP patterns,Advanced feature (Phase 2),"GPT-4, Mistral Large"
+Voice Anxiety Detection,Voice Biomarkers,75-82% AUC (Research),Research/Early commercial,High (natural conversation),Anthropic Claude conversation,Core feature (Phase 1),"Claude 3.5, GPT-4 Audio"
+Voice Speech Pattern Analysis,Voice Biomarkers,80-90% speech pattern recognition,Research phase,High (automatic analysis),Mistral multilingual processing,Core feature (Phase 1),"Whisper, GPT-4, Mistral"
+Voice Mood Tracking,Voice Biomarkers,70-85% mood correlation,Early research,High (daily tracking),ElevenLabs voice synthesis,Core feature (Phase 1),"GPT-4, Claude, Llama 3"
+Camera Heart Rate (rPPG),Computer Vision,2.60 bpm RMSE (FaceHeart),FDA cleared (FaceHeart),High (non-contact),Computer vision transformers,Core feature (Phase 2),"GPT-4V, Gemini Pro Vision"
+Camera Blood Pressure Estimation,Computer Vision,6.91/4.88 mmHg RMSE,FDA cleared (FaceHeart),High (easy measurement),Google DeepMind analysis,Advanced feature (Phase 3),"GPT-4V, Claude 3.5 Vision"
+Camera Respiratory Rate,Computer Vision,2.22 cpm RMSE,CE marked,High (automatic),Real-time video AI,Core feature (Phase 2),Gemini Pro Vision
+Camera Facial Expression Analysis,Computer Vision,84% correlation with experts,Research/Limited commercial,Medium (privacy concerns),GPT-4V facial analysis,Enhancement (Phase 2),"GPT-4V, Claude 3.5 Vision"
+Camera Fall Detection,Computer Vision,85%+ sensitivity/specificity,Commercial available,High (safety critical),Predictive analytics AI,Safety feature (Phase 2),Computer Vision APIs
+Camera Gait Analysis,Computer Vision,70-85% gait accuracy,Research phase,High (independence),Movement pattern AI,Wellness feature (Phase 3),"GPT-4V, Gemini Vision"
+Multimodal Health Assessment,Multimodal GenAI,70-90% comprehensive assessment,Early research,High (comprehensive care),GPT-4V multimodal fusion,Future core platform (Phase 4),GPT-4V + GPT-4 Audio
+ADL Recognition,Multimodal GenAI,50%+ TPR with multimodal,Research phase,Medium (complexity),Behavior prediction models,Future enhancement (Phase 3),GPT-4V multimodal
+Medication Adherence,Multimodal GenAI,80-90% adherence detection,Early research,High (medication safety),Smart monitoring systems,Future feature (Phase 3),GPT-4V + conversation
+Social Interaction Analysis,Multimodal GenAI,65-80% interaction analysis,Research phase,Medium (social aspects),Conversation analysis AI,Enhancement (Phase 2),"GPT-4, Claude conversation"
+Sleep Quality Assessment,Multimodal GenAI,70-85% sleep quality correlation,Research/Early commercial,High (sleep importance),Sleep pattern AI analysis,Enhancement (Phase 3),GPT-4 Audio + vision
+Pain Detection,Multimodal GenAI,75-85% pain detection accuracy,Research phase,High (pain management),Multimodal pain assessment,Advanced feature (Phase 3),GPT-4V + voice analysis
