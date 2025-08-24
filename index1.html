@@ -1472,6 +1472,7 @@
                     
                     <div class="hero-ctas">
                         <a href="#signup" class="cta-primary">Help Them Thrive Today</a>
+                        <a href="#solution" class="cta-secondary">See How It Works</a>
                     </div>
 
                     <div class="hero-trust">
@@ -1989,12 +1990,9 @@
                 <h3 style="color: var(--primary-blue); margin-bottom: 1rem; font-size: 1.5rem;">Join the Thriving Families Movement</h3>
                 <p style="color: var(--text-medium); margin-bottom: 2rem;">Be first to help your family thrive when we launch</p>
                 
-                <form class="signup-form" id="signupForm" action="https://formsubmit.co/a.tryvailo@gmail.com" method="POST">
-                    <input type="hidden" name="_subject" value="New BridgeHome Signup">
-                    <input type="hidden" name="_captcha" value="false">
-                    <input type="hidden" name="_next" value="https://bridgehome.com/thank-you">
-                    <input type="email" class="email-input" name="email" placeholder="Your email address" required>
-                    <select class="family-situation" name="family_situation" required>
+                <form class="signup-form" id="signupForm">
+                    <input type="email" class="email-input" placeholder="Your email address" required>
+                    <select class="family-situation" required>
                         <option value="">Your family situation</option>
                         <option value="caring">I care for elderly parents</option>
                         <option value="elderly">I'm an elderly parent</option>
@@ -2005,7 +2003,7 @@
                 </form>
 
                 <div class="success-message" id="successMessage">
-                    Thank you! Your message is being sent. You're now part of the thriving families movement!
+                    Welcome to the thriving families movement! You're choosing connection over worry. We'll keep you updated on this beautiful journey together.
                 </div>
                 
                 <ul class="signup-benefits">
@@ -2099,23 +2097,30 @@
 
         // Form submission handling
         document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
             // Show loading state
             const submitBtn = this.querySelector('.signup-submit');
             const originalText = submitBtn.textContent;
-            submitBtn.textContent = 'Sending...';
+            submitBtn.textContent = 'Helping them thrive...';
             submitBtn.classList.add('loading');
             
-            // Show success message immediately (form will redirect)
+            // Simulate form submission (replace with actual API call)
             setTimeout(() => {
+                submitBtn.textContent = originalText;
+                submitBtn.classList.remove('loading');
+                
+                // Show success message
                 document.getElementById('successMessage').classList.add('show');
                 
-                // Hide success message after 3 seconds, then form will submit
+                // Reset form
+                this.reset();
+                
+                // Hide success message after 5 seconds
                 setTimeout(() => {
                     document.getElementById('successMessage').classList.remove('show');
-                    submitBtn.textContent = originalText;
-                    submitBtn.classList.remove('loading');
-                }, 3000);
-            }, 500);
+                }, 5000);
+            }, 2000);
         });
 
         // Add animation on scroll for timeline items
